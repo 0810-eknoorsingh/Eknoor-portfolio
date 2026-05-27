@@ -19,7 +19,7 @@ function Counter({ target, suffix }) {
     return () => clearInterval(t);
   }, [inV, target]);
   return (
-    <span ref={ref} style={{ fontFamily:T.display, fontWeight:700, fontSize:"2.5rem", lineHeight:1, color:T.accent }}>
+    <span ref={ref} className="font-display font-bold text-[2.5rem] leading-none text-accent">
       {count}{suffix}
     </span>
   );
@@ -27,25 +27,25 @@ function Counter({ target, suffix }) {
 
 export default function About() {
   return (
-    <section id="about" style={{ padding:"120px 40px", background:T.surface, borderTop:`1px solid ${T.border}`, borderBottom:`1px solid ${T.border}`, position:"relative", overflow:"hidden" }}>
+    <section id="about" className="py-[120px] px-10 max-sm:py-[80px] max-sm:px-6 bg-surface relative overflow-hidden border-y border-border">
       {/* Ghost number */}
-      <div style={{ position:"absolute", right:-20, top:-20, fontFamily:T.display, fontWeight:800, fontSize:"22vw", color:"rgba(255,255,255,0.015)", lineHeight:1, userSelect:"none", pointerEvents:"none" }}>01</div>
+      <div className="absolute -right-5 -top-5 font-display font-[800] text-[22vw] leading-none select-none pointer-events-none" style={{ color:"rgba(255,255,255,0.015)" }}>01</div>
 
-      <div style={{ maxWidth:1200, margin:"0 auto", position:"relative" }}>
+      <div className="max-w-[1200px] mx-auto relative">
         <SectionHeader label="About Me" title={<>Building reliable software<br/>for real-world problems</>} />
 
-        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:72, alignItems:"center" }} className="about-grid">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-[72px] items-center max-lg:gap-11">
           {/* Text */}
           <FadeUp>
-            <div style={{ display:"flex", flexDirection:"column", gap:18 }}>
+            <div className="flex flex-col gap-[18px]">
               {data.about.map((p, i) => (
-                <p key={i} style={{ color:T.muted, lineHeight:1.9, fontSize:"0.97rem" }} dangerouslySetInnerHTML={{ __html: p }} />
+                <p key={i} className="text-muted leading-[1.9] text-[0.97rem]" dangerouslySetInnerHTML={{ __html: p }} />
               ))}
             </div>
           </FadeUp>
 
           {/* Stats */}
-          <Stagger className="stats-grid" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:14 }}>
+          <Stagger className="grid grid-cols-2 gap-[14px]">
             {data.stats.map((s) => (
               <motion.div
                 key={s.label}
@@ -55,16 +55,12 @@ export default function About() {
                 style={{ background:T.card, border:`1px solid ${T.border}`, backdropFilter:"blur(20px)", WebkitBackdropFilter:"blur(20px)", borderRadius:14, padding:"22px 20px", cursor:"default" }}
               >
                 <Counter target={s.value} suffix={s.suffix} />
-                <p style={{ color:T.muted, fontSize:"0.82rem", marginTop:6, lineHeight:1.5 }}>{s.label}</p>
+                <p className="text-muted text-[0.82rem] mt-1.5 leading-[1.5]">{s.label}</p>
               </motion.div>
             ))}
           </Stagger>
         </div>
       </div>
-      <style>{`
-        @media(max-width:1024px){ .about-grid{ grid-template-columns:1fr !important; gap:44px !important; } }
-        @media(max-width:640px){ #about{ padding:80px 24px !important; } .stats-grid{ grid-template-columns:1fr 1fr !important; } }
-      `}</style>
     </section>
   );
 }

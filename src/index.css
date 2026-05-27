@@ -4,9 +4,25 @@
 @theme {
   --font-display: 'Space Grotesk', sans-serif;
   --font-mono:    'JetBrains Mono', monospace;
+
+  --color-accent:        #00d4ff;
+  --color-accent-dim:    rgba(0,212,255,0.08);
+  --color-accent-glow:   rgba(0,212,255,0.18);
+  --color-accent-border: rgba(0,212,255,0.25);
+  --color-green:         #00ff88;
+  --color-green-dim:     rgba(0,255,136,0.08);
+  --color-green-border:  rgba(0,255,136,0.22);
+  --color-bg:            #060608;
+  --color-surface:       #0b0b0e;
+  --color-card:          rgba(255,255,255,0.025);
+  --color-card-solid:    #0f0f14;
+  --color-border:        rgba(255,255,255,0.07);
+  --color-border-hover:  rgba(0,212,255,0.28);
+  --color-text:          #e2e8f0;
+  --color-muted:         #7a8599;
+  --color-dim:           #3d4556;
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
 body {

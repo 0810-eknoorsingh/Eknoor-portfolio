@@ -33,7 +33,7 @@ function Particles() {
     draw();
     return () => { cancelAnimationFrame(id); window.removeEventListener("resize", resize); };
   }, []);
-  return <canvas ref={ref} style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none" }} />;
+  return <canvas ref={ref} className="absolute inset-0 z-0 pointer-events-none" />;
 }
 
 /* ── Typed animation ── */
@@ -54,8 +54,8 @@ function TypedRole({ roles }) {
     return () => clearTimeout(t);
   }, [text, del, ri, roles]);
   return (
-    <span style={{ fontFamily: T.display, fontSize: "clamp(1.1rem,2.2vw,1.45rem)", fontWeight: 400, color: T.muted }}>
-      {text}<span className="blink" style={{ color: T.accent }}>|</span>
+    <span className="font-display font-normal text-muted" style={{ fontSize: "clamp(1.1rem,2.2vw,1.45rem)" }}>
+      {text}<span className="blink text-accent">|</span>
     </span>
   );
 }
@@ -84,8 +84,8 @@ function CodeCard() {
       initial={{ opacity: 0, x: 50, rotateY: -8 }}
       animate={{ opacity: 1, x: 0, rotateY: 0 }}
       transition={{ duration: 0.9, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="fl"
-      style={{ width: "100%", maxWidth: 450, perspective: 1000 }}
+      className="fl w-full max-w-[450px]"
+      style={{ perspective: 1000 }}
     >
       <div style={{
         background: "rgba(10,10,16,0.92)",
@@ -96,22 +96,22 @@ function CodeCard() {
         position: "relative",
       }}>
         {/* Glow top line */}
-        <div style={{ position:"absolute", top:0, left:0, right:0, height:1, background:"linear-gradient(90deg,transparent,#00d4ff,transparent)" }} />
+        <div className="absolute top-0 left-0 right-0 h-px" style={{ background:"linear-gradient(90deg,transparent,#00d4ff,transparent)" }} />
         {/* Mac header */}
-        <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", padding:"12px 18px", borderBottom:`1px solid ${T.border}` }}>
-          <div style={{ display:"flex", gap:6 }}>
-            <span style={{ width:10, height:10, borderRadius:"50%", background:"#ff5f57", display:"block" }}/>
-            <span style={{ width:10, height:10, borderRadius:"50%", background:"#febc2e", display:"block" }}/>
-            <span style={{ width:10, height:10, borderRadius:"50%", background:"#28c840", display:"block" }}/>
+        <div className="flex items-center justify-between px-[18px] py-3" style={{ borderBottom:`1px solid ${T.border}` }}>
+          <div className="flex gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full block" style={{ background:"#ff5f57" }}/>
+            <span className="w-2.5 h-2.5 rounded-full block" style={{ background:"#febc2e" }}/>
+            <span className="w-2.5 h-2.5 rounded-full block" style={{ background:"#28c840" }}/>
           </div>
-          <span style={{ fontFamily:T.mono, fontSize:"0.72rem", color:T.dim }}>eknoor.ts</span>
-          <span style={{ width:48 }}/>
+          <span className="font-mono text-[0.72rem] text-dim">eknoor.ts</span>
+          <span className="w-12"/>
         </div>
         {/* Code */}
-        <div style={{ padding:"18px 22px", fontFamily:T.mono, fontSize:"0.78rem", lineHeight:1.95 }}>
+        <div className="font-mono text-[0.78rem] leading-[1.95] px-[22px] py-[18px]">
           {lines.map((line, i) => (
-            <div key={i} style={{ display:"flex", gap:14 }}>
-              <span style={{ color:T.dim, userSelect:"none", minWidth:16, textAlign:"right", fontSize:"0.7rem", flexShrink:0 }}>{i+1}</span>
+            <div key={i} className="flex gap-3.5">
+              <span className="text-dim select-none min-w-[16px] text-right text-[0.7rem] shrink-0">{i+1}</span>
               <span>{line[0]}</span>
             </div>
           ))}
@@ -128,30 +128,29 @@ const socialIcons = [
 ];
 
 export default function Hero() {
-  const container = { opacity: 0, y: 0 };
   const item = (d) => ({ initial:{ opacity:0, y:28 }, animate:{ opacity:1, y:0 }, transition:{ duration:0.7, delay:d, ease:[0.22,1,0.36,1] } });
 
   return (
-    <section id="hero" style={{ minHeight:"100vh", display:"flex", alignItems:"center", position:"relative", overflow:"hidden", padding:"110px 40px 70px", background: T.bg }}>
+    <section id="hero" className="min-h-screen flex items-center relative overflow-hidden px-10 pt-[110px] pb-[70px] max-sm:px-6 max-sm:pt-[100px] max-sm:pb-[60px] bg-bg">
       {/* Dot grid */}
-      <div style={{ position:"absolute", inset:0, backgroundImage:"radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)", backgroundSize:"36px 36px", WebkitMaskImage:"radial-gradient(ellipse 75% 75% at 50% 50%, black 0%, transparent 100%)", maskImage:"radial-gradient(ellipse 75% 75% at 50% 50%, black 0%, transparent 100%)", zIndex:0 }}/>
+      <div className="absolute inset-0 z-0" style={{ backgroundImage:"radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)", backgroundSize:"36px 36px", WebkitMaskImage:"radial-gradient(ellipse 75% 75% at 50% 50%, black 0%, transparent 100%)", maskImage:"radial-gradient(ellipse 75% 75% at 50% 50%, black 0%, transparent 100%)" }}/>
       {/* Glows */}
-      <div style={{ position:"absolute", width:750, height:750, borderRadius:"50%", background:"radial-gradient(circle, rgba(0,212,255,0.07) 0%, transparent 65%)", top:-200, right:-200, pointerEvents:"none", zIndex:0 }}/>
-      <div style={{ position:"absolute", width:500, height:500, borderRadius:"50%", background:"radial-gradient(circle, rgba(0,255,136,0.04) 0%, transparent 65%)", bottom:-100, left:-100, pointerEvents:"none", zIndex:0 }}/>
+      <div className="absolute w-[750px] h-[750px] rounded-full pointer-events-none z-0" style={{ background:"radial-gradient(circle, rgba(0,212,255,0.07) 0%, transparent 65%)", top:-200, right:-200 }}/>
+      <div className="absolute w-[500px] h-[500px] rounded-full pointer-events-none z-0" style={{ background:"radial-gradient(circle, rgba(0,255,136,0.04) 0%, transparent 65%)", bottom:-100, left:-100 }}/>
       <Particles />
 
-      <div style={{ maxWidth:1200, margin:"0 auto", position:"relative", zIndex:1, display:"grid", gridTemplateColumns:"1fr 1fr", gap:80, alignItems:"center", width:"100%" }} className="hero-grid">
+      <div className="max-w-[1200px] mx-auto relative z-[1] grid grid-cols-1 lg:grid-cols-2 gap-[80px] items-center w-full">
         {/* ── LEFT ── */}
-        <div style={{ display:"flex", flexDirection:"column", gap:24 }}>
+        <div className="flex flex-col gap-6">
 
           {/* Badge */}
-          <motion.div {...item(0)} style={{ display:"inline-flex", alignItems:"center", gap:9, background:T.accentDim, border:`1px solid ${T.accentBorder}`, color:T.accent, padding:"6px 14px", borderRadius:100, fontFamily:T.mono, fontSize:"0.74rem", width:"fit-content" }}>
-            <span className="pdot" style={{ width:6, height:6, borderRadius:"50%", background:T.green, display:"block" }}/>
+          <motion.div {...item(0)} className="inline-flex items-center gap-[9px] bg-accent-dim border border-accent-border text-accent px-[14px] py-[6px] rounded-full font-mono text-[0.74rem] w-fit">
+            <span className="pdot w-1.5 h-1.5 rounded-full bg-green block"/>
             Available for opportunities
           </motion.div>
 
           {/* Name */}
-          <motion.h1 {...item(0.1)} className="font-display" style={{ fontFamily:T.display, fontWeight:700, fontSize:"clamp(3.2rem,5.8vw,5.5rem)", lineHeight:1.03, letterSpacing:"-0.035em", color:T.text }}>
+          <motion.h1 {...item(0.1)} className="font-display font-bold leading-[1.03] tracking-[-0.035em] text-text" style={{ fontSize:"clamp(3.2rem,5.8vw,5.5rem)" }}>
             Eknoor<br />
             <span style={{ background:"linear-gradient(135deg, #00d4ff 0%, #0ea5e9 50%, #38bdf8 100%)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>
               Singh
@@ -159,17 +158,17 @@ export default function Hero() {
           </motion.h1>
 
           {/* Typed */}
-          <motion.div {...item(0.2)} style={{ minHeight:"1.8rem" }}>
+          <motion.div {...item(0.2)} className="min-h-[1.8rem]">
             <TypedRole roles={data.roles} />
           </motion.div>
 
           {/* Bio */}
-          <motion.p {...item(0.3)} style={{ fontSize:"0.975rem", color:T.muted, lineHeight:1.85, maxWidth:500 }}>
+          <motion.p {...item(0.3)} className="text-[0.975rem] text-muted leading-[1.85] max-w-[500px]">
             {data.bio}
           </motion.p>
 
           {/* CTAs */}
-          <motion.div {...item(0.4)} style={{ display:"flex", gap:12, flexWrap:"wrap" }}>
+          <motion.div {...item(0.4)} className="flex gap-3 flex-wrap">
             <a href="#projects" onClick={(e)=>{ e.preventDefault(); document.getElementById("projects")?.scrollIntoView({behavior:"smooth"}); }}
               style={{ display:"inline-flex", alignItems:"center", gap:8, background:T.accent, color:"#000", textDecoration:"none", padding:"12px 26px", borderRadius:9, fontFamily:T.display, fontWeight:700, fontSize:"0.88rem", transition:"all 0.3s", boxShadow:"0 0 0 0 rgba(0,212,255,0.3)" }}
               onMouseEnter={e=>{ e.currentTarget.style.transform="translateY(-2px)"; e.currentTarget.style.boxShadow="0 8px 30px rgba(0,212,255,0.4)"; }}
@@ -189,7 +188,7 @@ export default function Hero() {
           </motion.div>
 
           {/* Socials */}
-          <motion.div {...item(0.5)} style={{ display:"flex", gap:10 }}>
+          <motion.div {...item(0.5)} className="flex gap-[10px]">
             {socialIcons.map(({ href, title, icon }) => (
               <a key={title} href={href} target={href.startsWith("http")?"_blank":undefined} rel="noreferrer" title={title}
                 style={{ display:"flex", alignItems:"center", justifyContent:"center", width:40, height:40, border:`1px solid rgba(255,255,255,0.12)`, borderRadius:10, color:T.muted, textDecoration:"none", transition:"all 0.3s" }}
@@ -201,21 +200,18 @@ export default function Hero() {
         </div>
 
         {/* ── RIGHT ── */}
-        <div style={{ display:"flex", justifyContent:"center" }}>
+        <div className="hidden lg:flex justify-center">
           <CodeCard />
         </div>
       </div>
 
       {/* Scroll hint */}
-      <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:2}} style={{ position:"absolute", bottom:36, left:"50%", transform:"translateX(-50%)", display:"flex", flexDirection:"column", alignItems:"center", gap:6 }}>
-        <span style={{ fontFamily:T.mono, fontSize:"0.63rem", color:T.dim, textTransform:"uppercase", letterSpacing:"0.14em" }}>Scroll</span>
-        <div style={{ width:1, height:36, background:"linear-gradient(to bottom, #3d4556, transparent)" }}/>
+      <motion.div initial={{opacity:0}} animate={{opacity:1}} transition={{delay:2}}
+        className="absolute bottom-9 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5"
+      >
+        <span className="font-mono text-[0.63rem] text-dim uppercase tracking-[0.14em]">Scroll</span>
+        <div className="w-px h-9 bg-gradient-to-b from-dim to-transparent"/>
       </motion.div>
-
-      <style>{`
-        @media(max-width:1024px){ .hero-grid{ grid-template-columns:1fr !important; } .hero-grid > div:last-child{ display:none !important; } }
-        @media(max-width:640px){ #hero{ padding:100px 24px 60px !important; } }
-      `}</style>
     </section>
   );
 }

@@ -4,48 +4,48 @@ import { data } from "../data";
 
 export default function Experience() {
   return (
-    <section id="experience" style={{ padding:"120px 40px", background:T.surface, borderTop:`1px solid ${T.border}`, borderBottom:`1px solid ${T.border}`, position:"relative", overflow:"hidden" }}>
-      <div style={{ position:"absolute", right:-20, top:-20, fontFamily:T.display, fontWeight:800, fontSize:"22vw", color:"rgba(255,255,255,0.015)", lineHeight:1, userSelect:"none", pointerEvents:"none" }}>03</div>
+    <section id="experience" className="py-[120px] px-10 max-sm:py-[80px] max-sm:px-6 bg-surface relative overflow-hidden border-y border-border">
+      <div className="absolute -right-5 -top-5 font-display font-[800] text-[22vw] leading-none select-none pointer-events-none" style={{ color:"rgba(255,255,255,0.015)" }}>03</div>
 
-      <div style={{ maxWidth:1200, margin:"0 auto", position:"relative" }}>
+      <div className="max-w-[1200px] mx-auto relative">
         <SectionHeader label="Experience" title="Where I've worked" />
 
         <FadeUp>
-          {/* Timeline — left border + dot approach (no overlap) */}
-          <div style={{ display:"flex", flexDirection:"column", gap:0 }}>
+          <div className="flex flex-col gap-0">
             {data.experience.map((job, i) => (
-              <div key={i} style={{ display:"flex", gap:0 }}>
-                {/* Left: date column */}
-                <div style={{ width:180, flexShrink:0, paddingRight:32, paddingTop:4, textAlign:"right" }} className="exp-meta">
-                  <p style={{ fontFamily:T.mono, fontSize:"0.74rem", color:T.accent, marginBottom:3 }}>{job.period}</p>
-                  <p style={{ fontSize:"0.75rem", color:T.dim }}>{job.location}</p>
+              <div key={i} className="flex gap-0">
+                {/* Left: date column — hidden on mobile */}
+                <div className="hidden md:block w-[180px] shrink-0 pr-8 pt-1 text-right">
+                  <p className="font-mono text-[0.74rem] text-accent mb-[3px]">{job.period}</p>
+                  <p className="text-[0.75rem] text-dim">{job.location}</p>
                 </div>
 
                 {/* Center: timeline line + dot */}
-                <div style={{ display:"flex", flexDirection:"column", alignItems:"center", width:32, flexShrink:0 }}>
-                  <div style={{ width:10, height:10, borderRadius:"50%", background: job.current ? T.accent : T.dim, boxShadow: job.current ? `0 0 0 3px ${T.surface}, 0 0 0 4.5px ${T.accent}, 0 0 12px ${T.accentGlow}` : `0 0 0 3px ${T.surface}, 0 0 0 4.5px ${T.dim}`, flexShrink:0, marginTop:5 }}/>
-                  {i < data.experience.length - 1 && <div style={{ width:1, flex:1, background:`linear-gradient(to bottom, rgba(0,212,255,0.3), rgba(255,255,255,0.06))`, margin:"8px 0 0" }}/>}
+                <div className="flex flex-col items-center w-8 shrink-0">
+                  <div className="w-2.5 h-2.5 rounded-full shrink-0 mt-[5px]" style={{ background: job.current ? T.accent : T.dim, boxShadow: job.current ? `0 0 0 3px ${T.surface}, 0 0 0 4.5px ${T.accent}, 0 0 12px ${T.accentGlow}` : `0 0 0 3px ${T.surface}, 0 0 0 4.5px ${T.dim}` }}/>
+                  {i < data.experience.length - 1 && <div className="w-px flex-1 mt-2" style={{ background:`linear-gradient(to bottom, rgba(0,212,255,0.3), rgba(255,255,255,0.06))` }}/>}
                 </div>
 
                 {/* Right: content */}
                 <motion.div
                   whileHover={{ x: 4 }}
                   transition={{ duration: 0.2 }}
-                  style={{ flex:1, paddingLeft:32, paddingBottom: i < data.experience.length-1 ? 52 : 0 }}
+                  className="flex-1 pl-8"
+                  style={{ paddingBottom: i < data.experience.length-1 ? 52 : 0 }}
                 >
-                  <div style={{ display:"flex", alignItems:"center", flexWrap:"wrap", gap:10, marginBottom:4 }}>
-                    <span style={{ fontFamily:T.display, fontWeight:600, fontSize:"1.08rem", color:T.text }}>{job.role}</span>
+                  <div className="flex items-center flex-wrap gap-[10px] mb-1">
+                    <span className="font-display font-semibold text-[1.08rem] text-text">{job.role}</span>
                     {job.current && (
-                      <span style={{ display:"inline-flex", alignItems:"center", gap:5, background:T.greenDim, border:`1px solid ${T.greenBorder}`, color:T.green, padding:"2px 10px", borderRadius:100, fontSize:"0.68rem", fontFamily:T.mono }}>
+                      <span className="inline-flex items-center gap-[5px] px-[10px] py-[2px] rounded-full text-[0.68rem] font-mono text-green" style={{ background:T.greenDim, border:`1px solid ${T.greenBorder}` }}>
                         ● Current
                       </span>
                     )}
                   </div>
-                  <p style={{ color:T.accent, fontSize:"0.85rem", fontWeight:500, marginBottom:14 }}>{job.company}</p>
-                  <ul style={{ listStyle:"none", display:"flex", flexDirection:"column", gap:10 }}>
+                  <p className="text-accent text-[0.85rem] font-medium mb-[14px]">{job.company}</p>
+                  <ul className="list-none flex flex-col gap-[10px]">
                     {job.bullets.map((b, j) => (
-                      <li key={j} style={{ display:"flex", gap:10, fontSize:"0.875rem", color:T.muted, lineHeight:1.65 }}>
-                        <span style={{ color:T.accent, flexShrink:0, marginTop:2 }}>▸</span>
+                      <li key={j} className="flex gap-[10px] text-[0.875rem] text-muted leading-[1.65]">
+                        <span className="text-accent shrink-0 mt-0.5">▸</span>
                         {b}
                       </li>
                     ))}
@@ -56,12 +56,6 @@ export default function Experience() {
           </div>
         </FadeUp>
       </div>
-      <style>{`
-        @media(max-width:768px){
-          .exp-meta{ display:none !important; }
-          #experience{ padding:80px 24px !important; }
-        }
-      `}</style>
     </section>
   );
 }

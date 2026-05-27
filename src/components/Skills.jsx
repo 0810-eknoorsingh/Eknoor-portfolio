@@ -4,14 +4,14 @@ import { data } from "../data";
 
 export default function Skills() {
   return (
-    <section id="skills" style={{ padding:"120px 40px", background:T.bg, position:"relative", overflow:"hidden" }}>
+    <section id="skills" className="py-[120px] px-10 max-sm:py-[80px] max-sm:px-6 bg-bg relative overflow-hidden">
       {/* Ghost */}
-      <div style={{ position:"absolute", left:-20, top:-20, fontFamily:T.display, fontWeight:800, fontSize:"22vw", color:"rgba(255,255,255,0.015)", lineHeight:1, userSelect:"none", pointerEvents:"none" }}>02</div>
+      <div className="absolute -left-5 -top-5 font-display font-[800] text-[22vw] leading-none select-none pointer-events-none" style={{ color:"rgba(255,255,255,0.015)" }}>02</div>
 
-      <div style={{ maxWidth:1200, margin:"0 auto", position:"relative" }}>
+      <div className="max-w-[1200px] mx-auto relative">
         <SectionHeader label="Tech Stack" title="Technologies I work with" desc="Tools and frameworks I use to build scalable, production-ready applications." />
 
-        <Stagger style={{ display:"grid", gridTemplateColumns:"repeat(3, 1fr)", gap:18 }} className="skills-grid">
+        <Stagger className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[18px]">
           {data.skills.map((cat) => (
             <motion.div
               key={cat.name}
@@ -21,22 +21,23 @@ export default function Skills() {
               style={{ background:T.card, border:`1px solid ${T.border}`, backdropFilter:"blur(20px)", WebkitBackdropFilter:"blur(20px)", borderRadius:16, padding:26, overflow:"hidden", position:"relative" }}
             >
               {/* Top accent line */}
-              <div style={{ position:"absolute", top:0, left:0, right:0, height:1, background:`linear-gradient(90deg, transparent, ${T.accent}, transparent)`, opacity:0.4 }}/>
+              <div className="absolute top-0 left-0 right-0 h-px opacity-40" style={{ background:`linear-gradient(90deg, transparent, ${T.accent}, transparent)` }}/>
               {/* Header */}
-              <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:18 }}>
-                <div style={{ width:38, height:38, background:T.accentDim, border:`1px solid rgba(0,212,255,0.15)`, borderRadius:10, display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1rem", flexShrink:0 }}>
+              <div className="flex items-center gap-3 mb-[18px]">
+                <div className="w-[38px] h-[38px] rounded-[10px] flex items-center justify-center text-base shrink-0" style={{ background:T.accentDim, border:`1px solid rgba(0,212,255,0.15)` }}>
                   {cat.icon}
                 </div>
-                <span style={{ fontFamily:T.display, fontWeight:600, fontSize:"0.94rem", color:T.text }}>{cat.name}</span>
+                <span className="font-display font-semibold text-[0.94rem] text-text">{cat.name}</span>
               </div>
-              {/* Tags — contained inside the card */}
-              <div style={{ display:"flex", flexWrap:"wrap", gap:6 }}>
+              {/* Tags */}
+              <div className="flex flex-wrap gap-1.5">
                 {cat.tags.map((tag) => (
                   <motion.span
                     key={tag}
                     whileHover={{ background:T.accentDim, borderColor:"rgba(0,212,255,0.3)", color:T.accent }}
                     transition={{ duration:0.15 }}
-                    style={{ display:"inline-block", padding:"3px 11px", background:"rgba(255,255,255,0.04)", border:`1px solid rgba(255,255,255,0.08)`, borderRadius:5, fontSize:"0.76rem", color:T.muted, fontFamily:T.mono, cursor:"default", whiteSpace:"nowrap" }}
+                    className="inline-block px-[11px] py-[3px] rounded-[5px] text-[0.76rem] text-muted font-mono cursor-default whitespace-nowrap"
+                    style={{ background:"rgba(255,255,255,0.04)", border:`1px solid rgba(255,255,255,0.08)` }}
                   >
                     {tag}
                   </motion.span>
@@ -46,10 +47,6 @@ export default function Skills() {
           ))}
         </Stagger>
       </div>
-      <style>{`
-        @media(max-width:1024px){ .skills-grid{ grid-template-columns:repeat(2,1fr) !important; } }
-        @media(max-width:640px){ .skills-grid{ grid-template-columns:1fr !important; } #skills{ padding:80px 24px !important; } }
-      `}</style>
     </section>
   );
 }

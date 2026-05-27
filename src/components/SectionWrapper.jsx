@@ -56,13 +56,14 @@ export function FadeIn({ children, delay = 0, className = "" }) {
   );
 }
 
-export function Stagger({ children, className = "" }) {
+export function Stagger({ children, className = "", style = {} }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-50px 0px" });
   return (
     <motion.div
       ref={ref}
       className={className}
+      style={style}
       initial="hidden"
       animate={inView ? "show" : "hidden"}
       variants={{ show: { transition: { staggerChildren: 0.1 } } }}

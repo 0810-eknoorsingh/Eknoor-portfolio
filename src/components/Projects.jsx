@@ -29,50 +29,51 @@ function TiltCard({ children }) {
 
 export default function Projects() {
   return (
-    <section id="projects" style={{ padding:"120px 40px", background:T.bg, position:"relative", overflow:"hidden" }}>
-      <div style={{ position:"absolute", left:-20, top:-20, fontFamily:T.display, fontWeight:800, fontSize:"22vw", color:"rgba(255,255,255,0.015)", lineHeight:1, userSelect:"none", pointerEvents:"none" }}>04</div>
+    <section id="projects" className="py-[120px] px-10 max-sm:py-[80px] max-sm:px-6 bg-bg relative overflow-hidden">
+      <div className="absolute -left-5 -top-5 font-display font-[800] text-[22vw] leading-none select-none pointer-events-none" style={{ color:"rgba(255,255,255,0.015)" }}>04</div>
 
-      <div style={{ maxWidth:1200, margin:"0 auto", position:"relative" }}>
+      <div className="max-w-[1200px] mx-auto relative">
         <SectionHeader label="Projects" title="What I've built" desc="Production-grade systems I architected and developed end-to-end." />
 
-        <Stagger style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:24 }} className="proj-grid">
+        <Stagger className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {data.projects.map((proj) => (
             <motion.div key={proj.number} variants={itemV}>
               <TiltCard>
                 <motion.div
                   whileHover={{ borderColor:T.accentBorder, boxShadow:`0 24px 70px rgba(0,0,0,.6), 0 0 40px ${T.accentGlow}` }}
                   transition={{ duration:0.3 }}
-                  style={{ background:"rgba(12,12,18,0.85)", border:`1px solid ${T.border}`, backdropFilter:"blur(24px)", WebkitBackdropFilter:"blur(24px)", borderRadius:20, padding:"36px 34px", display:"flex", flexDirection:"column", height:"100%", position:"relative", overflow:"hidden" }}
-                  className="proj-card"
+                  className="flex flex-col h-full relative overflow-hidden px-[34px] py-[36px] max-sm:px-[22px] max-sm:py-[26px]"
+                  style={{ background:"rgba(12,12,18,0.85)", border:`1px solid ${T.border}`, backdropFilter:"blur(24px)", WebkitBackdropFilter:"blur(24px)", borderRadius:20 }}
                 >
                   {/* Animated top line */}
                   <motion.div
                     initial={{ scaleX:0 }}
                     whileHover={{ scaleX:1 }}
                     transition={{ duration:0.4 }}
-                    style={{ position:"absolute", top:0, left:0, right:0, height:2, background:`linear-gradient(90deg, transparent, ${T.accent}, transparent)`, transformOrigin:"left" }}
+                    className="absolute top-0 left-0 right-0 h-0.5"
+                    style={{ background:`linear-gradient(90deg, transparent, ${T.accent}, transparent)`, transformOrigin:"left" }}
                   />
                   {/* Corner glow */}
-                  <div style={{ position:"absolute", top:-60, right:-60, width:200, height:200, borderRadius:"50%", background:`radial-gradient(circle, ${T.accentGlow} 0%, transparent 65%)`, pointerEvents:"none" }}/>
+                  <div className="absolute -top-[60px] -right-[60px] w-[200px] h-[200px] rounded-full pointer-events-none" style={{ background:`radial-gradient(circle, ${T.accentGlow} 0%, transparent 65%)` }}/>
 
                   {/* Project number */}
-                  <div style={{ position:"absolute", top:24, right:28, fontFamily:T.mono, fontSize:"3.5rem", fontWeight:700, color:"rgba(255,255,255,0.04)", lineHeight:1, userSelect:"none" }}>{proj.number}</div>
+                  <div className="absolute top-6 right-7 font-mono text-[3.5rem] font-bold leading-none select-none" style={{ color:"rgba(255,255,255,0.04)" }}>{proj.number}</div>
 
-                  <span style={{ fontFamily:T.mono, fontSize:"0.72rem", color:T.dim, marginBottom:14, display:"block" }}>{proj.number} / Project</span>
-                  <h3 className="font-display" style={{ fontFamily:T.display, fontWeight:700, fontSize:"1.18rem", color:T.text, marginBottom:12, lineHeight:1.3 }}>{proj.title}</h3>
-                  <p style={{ fontSize:"0.88rem", color:T.muted, lineHeight:1.75, marginBottom:20, flex:1 }}>{proj.description}</p>
+                  <span className="font-mono text-[0.72rem] text-dim mb-[14px] block">{proj.number} / Project</span>
+                  <h3 className="font-display font-bold text-[1.18rem] text-text mb-3 leading-[1.3]">{proj.title}</h3>
+                  <p className="text-[0.88rem] text-muted leading-[1.75] mb-5 flex-1">{proj.description}</p>
 
-                  <ul style={{ listStyle:"none", display:"flex", flexDirection:"column", gap:8, marginBottom:22 }}>
+                  <ul className="list-none flex flex-col gap-2 mb-[22px]">
                     {proj.highlights.map((h, i) => (
-                      <li key={i} style={{ display:"flex", gap:8, fontSize:"0.81rem", color:T.muted, lineHeight:1.55 }}>
-                        <span style={{ color:T.accent, flexShrink:0 }}>→</span>{h}
+                      <li key={i} className="flex gap-2 text-[0.81rem] text-muted leading-[1.55]">
+                        <span className="text-accent shrink-0">→</span>{h}
                       </li>
                     ))}
                   </ul>
 
-                  <div style={{ display:"flex", flexWrap:"wrap", gap:7, marginTop:"auto" }}>
+                  <div className="flex flex-wrap gap-[7px] mt-auto">
                     {proj.tech.map((t) => (
-                      <span key={t} style={{ padding:"3px 10px", background:"rgba(0,212,255,0.05)", border:`1px solid rgba(0,212,255,0.15)`, borderRadius:5, fontSize:"0.73rem", color:T.accent, fontFamily:T.mono }}>
+                      <span key={t} className="px-[10px] py-[3px] rounded-[5px] text-[0.73rem] text-accent font-mono" style={{ background:"rgba(0,212,255,0.05)", border:`1px solid rgba(0,212,255,0.15)` }}>
                         {t}
                       </span>
                     ))}
@@ -83,10 +84,6 @@ export default function Projects() {
           ))}
         </Stagger>
       </div>
-      <style>{`
-        @media(max-width:1024px){ .proj-grid{ grid-template-columns:1fr !important; } }
-        @media(max-width:640px){ #projects{ padding:80px 24px !important; } .proj-card{ padding:26px 22px !important; } }
-      `}</style>
     </section>
   );
 }

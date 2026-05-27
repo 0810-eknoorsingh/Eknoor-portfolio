@@ -10,24 +10,24 @@ const links = [
 
 export default function Contact() {
   return (
-    <section id="contact" style={{ padding:"120px 40px", background:T.bg, position:"relative", overflow:"hidden" }}>
+    <section id="contact" className="py-[120px] px-10 max-sm:py-[80px] max-sm:px-6 bg-bg relative overflow-hidden">
       {/* Background radial glow */}
-      <div style={{ position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:800, height:800, borderRadius:"50%", background:`radial-gradient(circle, rgba(0,212,255,0.04) 0%, transparent 65%)`, pointerEvents:"none" }}/>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full pointer-events-none" style={{ background:`radial-gradient(circle, rgba(0,212,255,0.04) 0%, transparent 65%)` }}/>
 
-      <div style={{ maxWidth:700, margin:"0 auto", textAlign:"center", position:"relative" }}>
+      <div className="max-w-[700px] mx-auto text-center relative">
         <FadeUp>
           {/* Label */}
-          <p style={{ fontFamily:T.mono, fontSize:"0.72rem", color:T.accent, textTransform:"uppercase", letterSpacing:"0.14em", marginBottom:14 }}>Contact</p>
+          <p className="font-mono text-[0.72rem] text-accent uppercase tracking-[0.14em] mb-[14px]">Contact</p>
 
           {/* Heading */}
-          <h2 className="font-display" style={{ fontFamily:T.display, fontWeight:700, fontSize:"clamp(2.6rem,5vw,4rem)", letterSpacing:"-0.035em", lineHeight:1.1, marginBottom:20, color:T.text }}>
+          <h2 className="font-display font-bold tracking-[-0.035em] leading-[1.1] mb-5 text-text" style={{ fontSize:"clamp(2.6rem,5vw,4rem)" }}>
             Let's work<br />
             <span style={{ background:"linear-gradient(135deg, #00d4ff 0%, #0ea5e9 60%)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>
               together.
             </span>
           </h2>
 
-          <p style={{ color:T.muted, fontSize:"0.975rem", lineHeight:1.85, marginBottom:44, maxWidth:520, margin:"0 auto 44px" }}>
+          <p className="text-muted text-[0.975rem] leading-[1.85] mx-auto mb-11 max-w-[520px]">
             I'm currently open to new opportunities. Whether you have a project in mind, want to discuss a role, or just want to say hi — my inbox is always open.
           </p>
 
@@ -36,14 +36,15 @@ export default function Contact() {
             href={`mailto:${data.email}`}
             whileHover={{ y:-3, boxShadow:`0 10px 36px rgba(0,212,255,0.3)`, borderColor:T.accent, background:"rgba(0,212,255,0.12)" }}
             transition={{ duration:0.25 }}
-            style={{ display:"inline-flex", alignItems:"center", gap:10, fontFamily:T.display, fontSize:"1rem", fontWeight:500, color:T.accent, textDecoration:"none", border:`1px solid ${T.accentBorder}`, padding:"14px 30px", borderRadius:10, background:T.accentDim, marginBottom:36, transition:"all 0.3s" }}
+            className="inline-flex items-center gap-[10px] font-display text-base font-medium text-accent no-underline px-[30px] py-[14px] rounded-[10px] mb-9 transition-all duration-300"
+            style={{ border:`1px solid ${T.accentBorder}`, background:T.accentDim }}
           >
             <svg width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/></svg>
             {data.email}
           </motion.a>
 
           {/* Secondary links */}
-          <div style={{ display:"flex", gap:12, justifyContent:"center", flexWrap:"wrap" }}>
+          <div className="flex gap-3 justify-center flex-wrap">
             {links.map(({ href, label, icon }) => (
               <motion.a
                 key={label}
@@ -52,7 +53,8 @@ export default function Contact() {
                 rel="noreferrer"
                 whileHover={{ y:-2, borderColor:"rgba(255,255,255,0.25)", color:T.text }}
                 transition={{ duration:0.2 }}
-                style={{ display:"inline-flex", alignItems:"center", gap:8, color:T.muted, textDecoration:"none", fontSize:"0.875rem", padding:"9px 20px", border:`1px solid rgba(255,255,255,0.1)`, borderRadius:9, fontFamily:T.display, transition:"all 0.3s" }}
+                className="inline-flex items-center gap-2 text-muted no-underline text-[0.875rem] px-5 py-[9px] rounded-[9px] font-display transition-all duration-300"
+                style={{ border:`1px solid rgba(255,255,255,0.1)` }}
               >
                 {icon}{label}
               </motion.a>
@@ -60,7 +62,6 @@ export default function Contact() {
           </div>
         </FadeUp>
       </div>
-      <style>{`@media(max-width:640px){ #contact{ padding:80px 24px !important; } }`}</style>
     </section>
   );
 }

@@ -33,36 +33,33 @@ export default function Navbar() {
         initial={{ y:-80, opacity:0 }}
         animate={{ y:0, opacity:1 }}
         transition={{ duration:0.6, ease:[0.22,1,0.36,1] }}
+        className="fixed top-0 left-0 right-0 z-[1000] transition-all duration-[350ms] ease-[ease]"
         style={{
-          position:"fixed", top:0, left:0, right:0, zIndex:1000,
           padding: scrolled ? "13px 0" : "22px 0",
           background: scrolled ? "rgba(6,6,8,0.88)" : "transparent",
           backdropFilter: scrolled ? "blur(20px)" : "none",
           WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
           borderBottom: scrolled ? `1px solid ${T.border}` : "1px solid transparent",
-          transition:"all 0.35s ease",
         }}
       >
-        <div style={{ maxWidth:1200, margin:"0 auto", padding:"0 40px", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+        <div className="max-w-[1200px] mx-auto px-6 md:px-10 flex items-center justify-between">
           {/* Logo */}
           <a href="#" onClick={(e)=>{ e.preventDefault(); window.scrollTo({top:0,behavior:"smooth"}); }}
-            style={{ fontFamily:T.display, fontWeight:700, fontSize:"1.4rem", color:T.text, textDecoration:"none" }}
+            className="font-display font-bold text-[1.4rem] text-text no-underline"
           >
-            ES<span style={{color:T.accent}}>.</span>
+            ES<span className="text-accent">.</span>
           </a>
 
           {/* Desktop links */}
-          <ul style={{ display:"flex", listStyle:"none", gap:4, alignItems:"center" }} className="nav-links">
+          <ul className="hidden md:flex list-none gap-1 items-center">
             {links.map((link) => (
               <li key={link}>
                 <button onClick={() => go(link)}
+                  className="font-display text-[0.86rem] font-medium px-[13px] py-[6px] rounded-lg border-none cursor-pointer transition-all duration-200"
                   style={{
-                    fontFamily:T.display, fontSize:"0.86rem", fontWeight:500,
-                    padding:"6px 13px", borderRadius:8, border:"none", cursor:"pointer",
                     background: active === link.toLowerCase() ? "rgba(255,255,255,0.06)" : "transparent",
                     color: link === "Contact" ? T.accent : (active === link.toLowerCase() ? T.text : T.muted),
                     outline: link === "Contact" ? `1px solid ${T.accentBorder}` : "none",
-                    transition:"all 0.2s",
                   }}
                   onMouseEnter={e=>{ e.currentTarget.style.color=T.text; e.currentTarget.style.background="rgba(255,255,255,0.06)"; }}
                   onMouseLeave={e=>{ e.currentTarget.style.color = link === "Contact" ? T.accent : (active === link.toLowerCase() ? T.text : T.muted); e.currentTarget.style.background = active === link.toLowerCase() ? "rgba(255,255,255,0.06)" : "transparent"; }}
@@ -74,10 +71,12 @@ export default function Navbar() {
           </ul>
 
           {/* Hamburger */}
-          <button onClick={()=>setMenuOpen(true)} style={{ display:"none", flexDirection:"column", gap:5, background:"transparent", border:"none", cursor:"pointer", padding:4 }} className="hamburger">
-            <span style={{display:"block",width:22,height:2,background:T.text,borderRadius:2}}/>
-            <span style={{display:"block",width:22,height:2,background:T.text,borderRadius:2}}/>
-            <span style={{display:"block",width:22,height:2,background:T.text,borderRadius:2}}/>
+          <button onClick={()=>setMenuOpen(true)}
+            className="flex md:hidden flex-col gap-[5px] bg-transparent border-none cursor-pointer p-1"
+          >
+            <span className="block w-[22px] h-0.5 bg-text rounded-[2px]"/>
+            <span className="block w-[22px] h-0.5 bg-text rounded-[2px]"/>
+            <span className="block w-[22px] h-0.5 bg-text rounded-[2px]"/>
           </button>
         </div>
       </motion.nav>
@@ -86,24 +85,20 @@ export default function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} transition={{duration:0.22}}
-            style={{ position:"fixed", inset:0, zIndex:999, background:"rgba(6,6,8,0.97)", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:28 }}
+            className="fixed inset-0 z-[999] bg-[rgba(6,6,8,0.97)] flex flex-col items-center justify-center gap-7"
           >
-            <button onClick={()=>setMenuOpen(false)} style={{ position:"absolute", top:24, right:28, fontSize:"1.5rem", color:T.muted, background:"none", border:"none", cursor:"pointer" }}>✕</button>
+            <button onClick={()=>setMenuOpen(false)}
+              className="absolute top-6 right-7 text-2xl text-muted bg-transparent border-none cursor-pointer"
+            >✕</button>
             {links.map((link, i) => (
               <motion.button key={link} initial={{opacity:0,y:18}} animate={{opacity:1,y:0}} exit={{opacity:0,y:18}} transition={{delay:i*0.06}}
                 onClick={()=>go(link)}
-                style={{ fontFamily:T.display, fontSize:"2rem", fontWeight:700, color:T.muted, background:"transparent", border:"none", cursor:"pointer", transition:"color 0.2s" }}
-                onMouseEnter={e=>e.currentTarget.style.color=T.accent}
-                onMouseLeave={e=>e.currentTarget.style.color=T.muted}
+                className="font-display text-[2rem] font-bold text-muted bg-transparent border-none cursor-pointer transition-colors duration-200 hover:text-accent"
               >{link}</motion.button>
             ))}
           </motion.div>
         )}
       </AnimatePresence>
-
-      <style>{`
-        @media(max-width:768px){ .nav-links{ display:none !important; } .hamburger{ display:flex !important; } nav > div{ padding:0 24px !important; } }
-      `}</style>
     </>
   );
 }

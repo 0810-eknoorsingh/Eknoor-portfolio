@@ -3,19 +3,24 @@ import { data } from "../data";
 
 export default function Footer() {
   return (
-    <footer style={{ borderTop:`1px solid ${T.border}`, padding:"24px 40px" }}>
-      <div style={{ maxWidth:1200, margin:"0 auto", display:"flex", alignItems:"center", justifyContent:"space-between", flexWrap:"wrap", gap:12 }}>
-        <p style={{ fontFamily:T.mono, fontSize:"0.81rem", color:T.dim }}>
-          Designed &amp; built by <span style={{color:T.accent}}>Eknoor Singh</span> · <span style={{color:T.accent}}>2025</span>
+    <footer className="border-t border-border py-6 px-10 max-sm:py-5 max-sm:px-6">
+      <div className="max-w-[1200px] mx-auto flex items-center justify-between flex-wrap gap-3">
+        <p className="font-mono text-[0.81rem] text-dim">
+          Designed &amp; built by <span className="text-accent">Eknoor Singh</span> · <span className="text-accent">2025</span>
         </p>
-        <div style={{ display:"flex", gap:20 }}>
-          <button onClick={()=>window.scrollTo({top:0,behavior:"smooth"})} style={{ color:T.dim, fontSize:"0.81rem", background:"none", border:"none", cursor:"pointer", transition:"color 0.2s" }} onMouseEnter={e=>e.currentTarget.style.color=T.text} onMouseLeave={e=>e.currentTarget.style.color=T.dim}>
+        <div className="flex gap-5">
+          <button
+            onClick={()=>window.scrollTo({top:0,behavior:"smooth"})}
+            className="text-dim text-[0.81rem] bg-transparent border-none cursor-pointer transition-colors duration-200 hover:text-text"
+          >
             Back to top ↑
           </button>
-          <a href={`mailto:${data.email}`} style={{ color:T.dim, fontSize:"0.81rem", textDecoration:"none", transition:"color 0.2s" }} onMouseEnter={e=>e.currentTarget.style.color=T.text} onMouseLeave={e=>e.currentTarget.style.color=T.dim}>Email</a>
+          <a
+            href={`mailto:${data.email}`}
+            className="text-dim text-[0.81rem] no-underline transition-colors duration-200 hover:text-text"
+          >Email</a>
         </div>
       </div>
-      <style>{`@media(max-width:640px){ footer{ padding:20px 24px !important; } }`}</style>
     </footer>
   );
 }
