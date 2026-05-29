@@ -1,40 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import { T } from "./SectionWrapper";
 import { data } from "../data";
 
-/* ── Particle canvas ── */
-function Particles() {
-  const ref = useRef(null);
-  useEffect(() => {
-    const canvas = ref.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    let id;
-    const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
-    resize();
-    window.addEventListener("resize", resize);
-    const pts = Array.from({ length: 60 }, () => ({
-      x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight,
-      vx: (Math.random() - 0.5) * 0.25, vy: (Math.random() - 0.5) * 0.25,
-      r: Math.random() * 1.3 + 0.4, a: Math.random() * 0.3 + 0.05,
-    }));
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      pts.forEach(p => {
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0,212,255,${p.a})`; ctx.fill();
-        p.x += p.vx; p.y += p.vy;
-        if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-      });
-      id = requestAnimationFrame(draw);
-    };
-    draw();
-    return () => { cancelAnimationFrame(id); window.removeEventListener("resize", resize); };
-  }, []);
-  return <canvas ref={ref} className="absolute inset-0 z-0 pointer-events-none" />;
-}
+const ThreeScene  = lazy(() => import("./ThreeScene"));
 
 /* ── Typed animation ── */
 function TypedRole({ roles }) {
@@ -137,7 +106,7 @@ export default function Hero() {
       {/* Glows */}
       <div className="absolute w-[750px] h-[750px] rounded-full pointer-events-none z-0" style={{ background:"radial-gradient(circle, rgba(0,212,255,0.07) 0%, transparent 65%)", top:-200, right:-200 }}/>
       <div className="absolute w-[500px] h-[500px] rounded-full pointer-events-none z-0" style={{ background:"radial-gradient(circle, rgba(0,255,136,0.04) 0%, transparent 65%)", bottom:-100, left:-100 }}/>
-      <Particles />
+      <Suspense fallback={null}><ThreeScene /></Suspense>
 
       <div className="max-w-[1200px] mx-auto relative z-[1] grid grid-cols-1 lg:grid-cols-2 gap-[80px] items-center w-full">
         {/* ── LEFT ── */}

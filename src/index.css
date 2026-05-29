@@ -2,7 +2,7 @@
 
 /* Tailwind v4 theme – generates font-display and font-mono utility classes */
 @theme {
-  --font-display: 'Space Grotesk', sans-serif;
+  --font-display: 'Barlow', sans-serif;
   --font-mono:    'JetBrains Mono', monospace;
 
   --color-accent:        #00d4ff;
@@ -35,7 +35,7 @@ body {
 }
 
 /* Explicit fallback classes so fonts always apply regardless of Tailwind processing */
-.font-display { font-family: 'Space Grotesk', sans-serif !important; }
+.font-display { font-family: 'Barlow', sans-serif !important; }
 .font-mono    { font-family: 'JetBrains Mono', monospace !important; }
 
 ::selection { background: rgba(0,212,255,.2); color: #fff; }

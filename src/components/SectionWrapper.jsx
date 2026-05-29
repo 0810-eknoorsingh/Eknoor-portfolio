@@ -19,7 +19,7 @@ export const T = {
   text:        "#e2e8f0",
   muted:       "#7a8599",
   dim:         "#3d4556",
-  display:     "'Space Grotesk', sans-serif",
+  display:     "'Barlow', sans-serif",
   mono:        "'JetBrains Mono', monospace",
 };
 
