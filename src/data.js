@@ -7,13 +7,13 @@ export const data = {
   githubUsername: "eknoor-singh",                    // ← update username
   linkedin: "https://linkedin.com/in/eknoor-singh",  // ← update slug
   location: "Mohali, India",
-  bio: "Full Stack Developer with 1+ year building production-grade web applications for live client projects. I craft scalable APIs, responsive UIs, and reliable systems — from database design to deployment.",
+  bio: "Software Development Engineer with 1+ year building production-grade web applications for live client projects. I craft scalable APIs, responsive UIs, and reliable systems — from database design to deployment.",
 
   roles: ["Full Stack Engineer", "React Developer", "Node.js Developer", "API Architect", "TypeScript Developer"],
 
   /* ── Stats (About section) ── */
   stats: [
-    { value: 1,  suffix: "+", label: "Year of professional experience" },
+    { value: 2,  suffix: "+", label: "Year of professional experience" },
     { value: 25, suffix: "+", label: "REST APIs developed" },
     { value: 3,  suffix: "",  label: "Production systems shipped" },
     { value: 10, suffix: "+", label: "Technologies in my stack" },
@@ -28,7 +28,7 @@ export const data = {
   ],
 
   about: [
-    "I'm a <strong>Full Stack Developer</strong> with over a year of hands-on experience building and shipping production-grade web applications for live client projects at <strong>DigiMantra Labs, Mohali</strong>.",
+    "I'm a <strong>Software Development Engineer</strong> with over a year of hands-on experience building and shipping production-grade web applications for live client projects at <strong>DigiMantra Labs, Mohali</strong>.",
     "My work spans the full stack — from designing <strong>scalable backend APIs</strong> and optimizing database queries, to building <strong>responsive, accessible front-ends</strong> with React and Next.js. I care deeply about performance, security, and long-term maintainability.",
     "I graduated from <strong>Thapar Institute of Engineering and Technology</strong> with a B.E. in Computer Science Engineering and thrive in fast-paced environments where I can ship features that make a real impact.",
   ],
@@ -44,7 +44,7 @@ export const data = {
 
   experience: [
     {
-      role: "Full Stack Developer",
+      role: "Software Development Engineer",
       company: "DigiMantra Labs",
       period: "Mar 2025 – Present",
       location: "Mohali, India",
@@ -56,7 +56,7 @@ export const data = {
       ],
     },
     {
-      role: "Full Stack Developer (Intern)",
+      role: "Software Development Engineer (Intern)",
       company: "DigiMantra Labs",
       period: "Jul 2024 – Mar 2025",
       location: "Mohali, India",
@@ -168,13 +168,13 @@ export const data = {
     {
       year: "Jul 2024",
       title: "Graduated — B.E. Computer Science",
-      detail: "Graduated from TIET with 7.73 CGPA. Immediately joined DigiMantra Labs as a Full Stack Developer Intern.",
+      detail: "Graduated from TIET with 7.73 CGPA. Immediately joined DigiMantra Labs as a Software Development Engineer Intern.",
       type: "education",
     },
     {
       year: "Jul 2024",
       title: "Joined DigiMantra Labs as Intern",
-      detail: "Started as Full Stack Developer Intern — shipped production features from week one across React, Node.js, and PostgreSQL.",
+      detail: "Started as Software Development Engineer Intern — shipped production features from week one across React, Node.js, and PostgreSQL.",
       type: "work",
     },
     {
@@ -185,8 +185,8 @@ export const data = {
     },
     {
       year: "Mar 2025",
-      title: "Promoted to Full Stack Developer",
-      detail: "Recognised for production impact and promoted to Full Stack Developer. Took ownership of end-to-end feature development and system reliability.",
+      title: "Promoted to Software Development Engineer",
+      detail: "Recognised for production impact and promoted to Software Development Engineer. Took ownership of end-to-end feature development and system reliability.",
       type: "work",
     },
     {
@@ -273,10 +273,10 @@ export const data = {
       },
       experience: {
         output: [
-          "DigiMantra Labs — Full Stack Developer",
+          "DigiMantra Labs — Software Development Engineer",
           "Mar 2025 – Present · Mohali, India",
           "",
-          "DigiMantra Labs — Full Stack Developer (Intern)",
+          "DigiMantra Labs — Software Development Engineer (Intern)",
           "Jul 2024 – Mar 2025 · Mohali, India",
           "",
           "Thapar Institute of Engineering & Technology",
@@ -305,7 +305,7 @@ export const data = {
           "25+  REST APIs developed",
           "3    Production systems shipped",
           "10+  Technologies in stack",
-          "1+   Year of professional experience",
+          "2+   Year of professional experience",
         ],
       },
     },

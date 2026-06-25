@@ -113,7 +113,7 @@ export default function IntroScreen({ visible, onDone }) {
               whiteSpace: "nowrap",
               pointerEvents: "none",
             }}>
-              EKNOOR SINGH
+              EKNOOR SINGH's
             </div>
 
             {/* Name — main text */}
@@ -130,7 +130,7 @@ export default function IntroScreen({ visible, onDone }) {
               textShadow:
                 "0 0 20px rgba(0,212,255,0.55), 0 0 55px rgba(0,212,255,0.22)",
             }}>
-              EKNOOR<br />SINGH
+              EKNOOR<br />SINGH's
             </h1>
 
             {/* Divider line */}
