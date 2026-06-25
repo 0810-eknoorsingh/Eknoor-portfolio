@@ -1,39 +1,30 @@
-import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState, useRef, lazy, Suspense } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import { T } from "./SectionWrapper";
 import { data } from "../data";
 
-/* ── Particle canvas ── */
-function Particles() {
-  const ref = useRef(null);
-  useEffect(() => {
-    const canvas = ref.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    let id;
-    const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
-    resize();
-    window.addEventListener("resize", resize);
-    const pts = Array.from({ length: 60 }, () => ({
-      x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight,
-      vx: (Math.random() - 0.5) * 0.25, vy: (Math.random() - 0.5) * 0.25,
-      r: Math.random() * 1.3 + 0.4, a: Math.random() * 0.3 + 0.05,
-    }));
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      pts.forEach(p => {
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0,212,255,${p.a})`; ctx.fill();
-        p.x += p.vx; p.y += p.vy;
-        if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-      });
-      id = requestAnimationFrame(draw);
-    };
-    draw();
-    return () => { cancelAnimationFrame(id); window.removeEventListener("resize", resize); };
-  }, []);
-  return <canvas ref={ref} className="absolute inset-0 z-0 pointer-events-none" />;
+const ThreeScene  = lazy(() => import("./ThreeScene"));
+
+/* ── Magnetic button wrapper ── */
+function MagneticBtn({ children, href, onClick, style }) {
+  const ref  = useRef(null);
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+  const x = useSpring(rawX, { stiffness: 200, damping: 18 });
+  const y = useSpring(rawY, { stiffness: 200, damping: 18 });
+  const move = (e) => {
+    const r = ref.current?.getBoundingClientRect();
+    if (!r) return;
+    rawX.set((e.clientX - r.left - r.width  / 2) * 0.30);
+    rawY.set((e.clientY - r.top  - r.height / 2) * 0.30);
+  };
+  const leave = () => { rawX.set(0); rawY.set(0); };
+  return (
+    <motion.a ref={ref} href={href} onClick={onClick} onMouseMove={move} onMouseLeave={leave}
+      style={{ x, y, textDecoration: "none", display: "inline-flex", ...style }}>
+      {children}
+    </motion.a>
+  );
 }
 
 /* ── Typed animation ── */
@@ -137,7 +128,7 @@ export default function Hero() {
       {/* Glows */}
       <div className="absolute w-[750px] h-[750px] rounded-full pointer-events-none z-0" style={{ background:"radial-gradient(circle, rgba(0,212,255,0.07) 0%, transparent 65%)", top:-200, right:-200 }}/>
       <div className="absolute w-[500px] h-[500px] rounded-full pointer-events-none z-0" style={{ background:"radial-gradient(circle, rgba(0,255,136,0.04) 0%, transparent 65%)", bottom:-100, left:-100 }}/>
-      <Particles />
+      <Suspense fallback={null}><ThreeScene /></Suspense>
 
       <div className="max-w-[1200px] mx-auto relative z-[1] grid grid-cols-1 lg:grid-cols-2 gap-[80px] items-center w-full">
         {/* ── LEFT ── */}
@@ -167,24 +158,28 @@ export default function Hero() {
             {data.bio}
           </motion.p>
 
-          {/* CTAs */}
+          {/* CTAs — magnetic */}
           <motion.div {...item(0.4)} className="flex gap-3 flex-wrap">
-            <a href="#projects" onClick={(e)=>{ e.preventDefault(); document.getElementById("projects")?.scrollIntoView({behavior:"smooth"}); }}
-              style={{ display:"inline-flex", alignItems:"center", gap:8, background:T.accent, color:"#000", textDecoration:"none", padding:"12px 26px", borderRadius:9, fontFamily:T.display, fontWeight:700, fontSize:"0.88rem", transition:"all 0.3s", boxShadow:"0 0 0 0 rgba(0,212,255,0.3)" }}
-              onMouseEnter={e=>{ e.currentTarget.style.transform="translateY(-2px)"; e.currentTarget.style.boxShadow="0 8px 30px rgba(0,212,255,0.4)"; }}
-              onMouseLeave={e=>{ e.currentTarget.style.transform=""; e.currentTarget.style.boxShadow="0 0 0 0 rgba(0,212,255,0.3)"; }}
-            >
-              <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
-              View My Work
-            </a>
-            <a href="#contact" onClick={(e)=>{ e.preventDefault(); document.getElementById("contact")?.scrollIntoView({behavior:"smooth"}); }}
-              style={{ display:"inline-flex", alignItems:"center", gap:8, background:"transparent", color:T.text, textDecoration:"none", padding:"12px 26px", borderRadius:9, fontFamily:T.display, fontWeight:500, fontSize:"0.88rem", border:`1px solid rgba(255,255,255,0.14)`, transition:"all 0.3s" }}
-              onMouseEnter={e=>{ e.currentTarget.style.borderColor="rgba(255,255,255,0.3)"; e.currentTarget.style.background="rgba(255,255,255,0.04)"; e.currentTarget.style.transform="translateY(-2px)"; }}
-              onMouseLeave={e=>{ e.currentTarget.style.borderColor="rgba(255,255,255,0.14)"; e.currentTarget.style.background="transparent"; e.currentTarget.style.transform=""; }}
-            >
-              <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/></svg>
-              Get In Touch
-            </a>
+            <MagneticBtn href="#projects" onClick={(e)=>{ e.preventDefault(); document.getElementById("projects")?.scrollIntoView({behavior:"smooth"}); }}>
+              <motion.span
+                whileHover={{ boxShadow: "0 8px 32px rgba(0,212,255,0.45)", scale: 1.04 }}
+                transition={{ duration: 0.25 }}
+                style={{ display:"inline-flex", alignItems:"center", gap:8, background:T.accent, color:"#000", padding:"12px 26px", borderRadius:9, fontFamily:T.display, fontWeight:700, fontSize:"0.88rem", cursor:"pointer" }}
+              >
+                <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+                View My Work
+              </motion.span>
+            </MagneticBtn>
+            <MagneticBtn href="#contact" onClick={(e)=>{ e.preventDefault(); document.getElementById("contact")?.scrollIntoView({behavior:"smooth"}); }}>
+              <motion.span
+                whileHover={{ borderColor:"rgba(255,255,255,0.30)", background:"rgba(255,255,255,0.05)", scale: 1.04 }}
+                transition={{ duration: 0.25 }}
+                style={{ display:"inline-flex", alignItems:"center", gap:8, background:"transparent", color:T.text, padding:"12px 26px", borderRadius:9, fontFamily:T.display, fontWeight:500, fontSize:"0.88rem", border:`1px solid rgba(255,255,255,0.14)`, cursor:"pointer" }}
+              >
+                <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/></svg>
+                Get In Touch
+              </motion.span>
+            </MagneticBtn>
           </motion.div>
 
           {/* Socials */}

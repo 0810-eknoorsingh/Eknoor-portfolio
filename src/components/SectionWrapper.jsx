@@ -19,7 +19,7 @@ export const T = {
   text:        "#e2e8f0",
   muted:       "#7a8599",
   dim:         "#3d4556",
-  display:     "'Space Grotesk', sans-serif",
+  display:     "'Barlow', sans-serif",
   mono:        "'JetBrains Mono', monospace",
 };
 
@@ -74,9 +74,69 @@ export function Stagger({ children, className = "", style = {} }) {
 }
 
 export const itemV = {
-  hidden: { opacity: 0, y: 22 },
-  show:   { opacity: 1, y: 0,  transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+  hidden: { opacity: 0, y: 28 },
+  show:   { opacity: 1, y: 0, transition: { duration: 0.60, ease: [0.22, 1, 0.36, 1] } },
 };
+
+/* Stagger with larger child delay — for cards that need more breathing room */
+export function StaggerGrid({ children, className = "", style = {}, delay = 0.12 }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-50px 0px" });
+  return (
+    <motion.div
+      ref={ref} className={className} style={style}
+      initial="hidden" animate={inView ? "show" : "hidden"}
+      variants={{ show: { transition: { staggerChildren: delay } } }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/* Slide in from left */
+export function SlideLeft({ children, delay = 0, className = "" }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px 0px" });
+  return (
+    <motion.div ref={ref} className={className}
+      initial={{ opacity: 0, x: -36 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/* Slide in from right */
+export function SlideRight({ children, delay = 0, className = "" }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px 0px" });
+  return (
+    <motion.div ref={ref} className={className}
+      initial={{ opacity: 0, x: 36 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/* Scale up reveal */
+export function ScaleUp({ children, delay = 0, className = "" }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-40px 0px" });
+  return (
+    <motion.div ref={ref} className={className}
+      initial={{ opacity: 0, scale: 0.93 }}
+      animate={inView ? { opacity: 1, scale: 1 } : {}}
+      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 /* ── Section label + heading ── */
 export function SectionHeader({ label, title, desc, center = false }) {
