@@ -1,7 +1,7 @@
 export const data = {
   name: "Eknoor Singh",
   title: "Full Stack Engineer",
-  email: "eknoorsingh0810@gmail.com",
+  email: "eknoor.singh.dev@gmail.com",
   phone: "+91 99884 50529",
   github: "https://github.com/eknoor-singh",        // ← update username
   githubUsername: "eknoor-singh",                    // ← update username
@@ -294,7 +294,7 @@ export const data = {
       },
       contact: {
         output: [
-          { text: "Email    →  eknoorsingh0810@gmail.com",   href: "mailto:eknoorsingh0810@gmail.com" },
+          { text: "Email    →  eknoor.singh.dev@gmail.com",   href: "mailto:eknoor.singh.dev@gmail.com" },
           { text: "GitHub   →  github.com/eknoor-singh",     href: "https://github.com/eknoor-singh" },
           { text: "LinkedIn →  linkedin.com/in/eknoor-singh", href: "https://linkedin.com/in/eknoor-singh" },
           { text: "Location →  Mohali, Punjab, India", href: "https://www.google.com/maps/place/Mohali,+Punjab" },
