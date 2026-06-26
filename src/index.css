@@ -123,3 +123,24 @@ body {
   50%       { box-shadow: 0 0 24px rgba(0,255,136,0.25), 0 0 48px rgba(167,139,250,0.12); }
 }
 .glow-border:hover { animation: borderGlow 3s ease infinite; }
+
+/* ── Contact form inputs ── */
+.contact-field {
+  width: 100%;
+  background: var(--tag-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 13px 16px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 0.88rem;
+  color: var(--color-text);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  resize: none;
+}
+.contact-field::placeholder { color: var(--color-dim); }
+.contact-field:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-dim);
+  background: var(--color-card);
+}
