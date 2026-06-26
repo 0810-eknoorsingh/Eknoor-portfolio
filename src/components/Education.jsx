@@ -6,7 +6,7 @@ export default function Education() {
   const edu = data.education;
   return (
     <section id="education" className="py-[120px] px-10 max-sm:py-[80px] max-sm:px-6 bg-surface relative overflow-hidden border-y border-border">
-      <div className="absolute -right-5 -top-5 font-display font-[800] text-[22vw] leading-none select-none pointer-events-none" style={{ color:"rgba(255,255,255,0.015)" }}>05</div>
+      <div className="absolute -right-5 -top-5 font-display font-[800] text-[22vw] leading-none select-none pointer-events-none" style={{ color:"var(--ghost-text)" }}>08</div>
 
       <div className="max-w-[1200px] mx-auto relative">
         <SectionHeader label="Education" title="Academic background" />
@@ -16,7 +16,7 @@ export default function Education() {
             whileHover={{ borderColor:T.accentBorder, boxShadow:`0 20px 60px rgba(0,0,0,.4), 0 0 30px ${T.accentGlow}` }}
             transition={{ duration:0.3 }}
             className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 items-start relative overflow-hidden p-[40px_44px] max-md:p-[28px_24px]"
-            style={{ background:"rgba(12,12,18,0.8)", border:`1px solid ${T.border}`, backdropFilter:"blur(24px)", WebkitBackdropFilter:"blur(24px)", borderRadius:20 }}
+            style={{ background:T.cardBg, border:`1px solid ${T.border}`, backdropFilter:"blur(24px)", WebkitBackdropFilter:"blur(24px)", borderRadius:20 }}
           >
             {/* Top gradient line */}
             <div className="absolute top-0 left-0 right-0 h-px" style={{ background:`linear-gradient(90deg, transparent, ${T.accent}, transparent)` }}/>
@@ -31,7 +31,7 @@ export default function Education() {
               </p>
               <div className="flex flex-wrap gap-[7px]">
                 {edu.courses.map((c) => (
-                  <span key={c} className="px-3 py-1 rounded-[6px] text-[0.76rem] text-muted" style={{ background:"rgba(255,255,255,0.04)", border:`1px solid rgba(255,255,255,0.08)` }}>
+                  <span key={c} className="px-3 py-1 rounded-[6px] text-[0.76rem] text-muted" style={{ background:T.tagBg, border:`1px solid ${T.tagBorder}` }}>
                     {c}
                   </span>
                 ))}

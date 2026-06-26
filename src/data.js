@@ -14,8 +14,8 @@ export const data = {
   /* ── Stats (About section) ── */
   stats: [
     { value: 2,  suffix: "+", label: "Year of professional experience" },
-    { value: 25, suffix: "+", label: "REST APIs developed" },
-    { value: 3,  suffix: "",  label: "Production systems shipped" },
+    { value: 1000, suffix: "+", label: "REST APIs developed" },
+    { value: 8,  suffix: "",  label: "Production systems shipped" },
     { value: 10, suffix: "+", label: "Technologies in my stack" },
   ],
 
@@ -302,8 +302,8 @@ export const data = {
       },
       metrics: {
         output: [
-          "25+  REST APIs developed",
-          "3    Production systems shipped",
+          "1000+  REST APIs developed",
+          "8    Production systems shipped",
           "10+  Technologies in stack",
           "2+   Year of professional experience",
         ],

@@ -17,7 +17,7 @@ export default function ScrollTop() {
           whileHover={{ y:-3, borderColor:T.accent, color:T.accent, boxShadow:`0 0 20px ${T.accentGlow}` }}
           onClick={()=>window.scrollTo({top:0,behavior:"smooth"})}
           className="fixed bottom-7 right-7 w-[42px] h-[42px] flex items-center justify-center text-muted cursor-pointer z-[100] text-[0.9rem] rounded-[10px] transition-all duration-[250ms]"
-          style={{ background:"rgba(12,12,18,0.9)", border:`1px solid rgba(255,255,255,0.12)`, backdropFilter:"blur(12px)", WebkitBackdropFilter:"blur(12px)" }}
+          style={{ background:T.cardBg, border:`1px solid ${T.subtleBorder}`, backdropFilter:"blur(12px)", WebkitBackdropFilter:"blur(12px)" }}
         >↑</motion.button>
       )}
     </AnimatePresence>

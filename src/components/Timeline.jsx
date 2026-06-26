@@ -18,10 +18,9 @@ const typeLabel = {
 
 export default function Timeline() {
   return (
-    <section id="timeline" className="py-[120px] px-10 max-sm:py-[80px] max-sm:px-6 relative overflow-hidden"
-      style={{ background: "rgba(7,7,10,1)" }}>
+    <section id="timeline" className="py-[120px] px-10 max-sm:py-[80px] max-sm:px-6 relative overflow-hidden bg-bg">
 
-      <div className="absolute -left-5 -top-5 font-display font-[800] text-[22vw] leading-none select-none pointer-events-none" style={{ color: "rgba(255,255,255,0.015)" }}>07</div>
+      <div className="absolute -left-5 -top-5 font-display font-[800] text-[22vw] leading-none select-none pointer-events-none" style={{ color: "var(--ghost-text)" }}>07</div>
 
       <div className="max-w-[860px] mx-auto relative">
         <SectionHeader label="Journey" title="How I got here" desc="Key moments that shaped the engineer I am today." />

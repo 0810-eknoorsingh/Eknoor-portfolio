@@ -51,10 +51,10 @@ export default function Contact() {
                 href={href}
                 target={href.startsWith("http")?"_blank":undefined}
                 rel="noreferrer"
-                whileHover={{ y:-2, borderColor:"rgba(255,255,255,0.25)", color:T.text }}
+                whileHover={{ y:-2, borderColor:T.subtleBorder, color:T.text }}
                 transition={{ duration:0.2 }}
                 className="inline-flex items-center gap-2 text-muted no-underline text-[0.875rem] px-5 py-[9px] rounded-[9px] font-display transition-all duration-300"
-                style={{ border:`1px solid rgba(255,255,255,0.1)` }}
+                style={{ border:`1px solid ${T.subtleBorder}` }}
               >
                 {icon}{label}
               </motion.a>
