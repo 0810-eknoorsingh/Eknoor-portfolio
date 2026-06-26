@@ -6,7 +6,7 @@ import { data } from "../data";
 const ThreeScene  = lazy(() => import("./ThreeScene"));
 
 /* ── Magnetic button wrapper ── */
-function MagneticBtn({ children, href, onClick, style }) {
+function MagneticBtn({ children, href, onClick, style, download }) {
   const ref  = useRef(null);
   const rawX = useMotionValue(0);
   const rawY = useMotionValue(0);
@@ -20,7 +20,7 @@ function MagneticBtn({ children, href, onClick, style }) {
   };
   const leave = () => { rawX.set(0); rawY.set(0); };
   return (
-    <motion.a ref={ref} href={href} onClick={onClick} onMouseMove={move} onMouseLeave={leave}
+    <motion.a ref={ref} href={href} onClick={onClick} download={download} onMouseMove={move} onMouseLeave={leave}
       style={{ x, y, textDecoration: "none", display: "inline-flex", ...style }}>
       {children}
     </motion.a>
@@ -79,7 +79,7 @@ function CodeCard() {
       style={{ perspective: 1000 }}
     >
       <div style={{
-        background: "rgba(10,10,16,0.92)",
+        background: T.codeCard,
         border: `1px solid ${T.border}`,
         borderRadius: 18,
         overflow: "hidden",
@@ -124,7 +124,7 @@ export default function Hero() {
   return (
     <section id="hero" className="min-h-screen flex items-center relative overflow-hidden px-10 pt-[110px] pb-[70px] max-sm:px-6 max-sm:pt-[100px] max-sm:pb-[60px] bg-bg">
       {/* Dot grid */}
-      <div className="absolute inset-0 z-0" style={{ backgroundImage:"radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)", backgroundSize:"36px 36px", WebkitMaskImage:"radial-gradient(ellipse 75% 75% at 50% 50%, black 0%, transparent 100%)", maskImage:"radial-gradient(ellipse 75% 75% at 50% 50%, black 0%, transparent 100%)" }}/>
+      <div className="absolute inset-0 z-0" style={{ backgroundImage:`radial-gradient(circle, var(--dot-grid) 1px, transparent 1px)`, backgroundSize:"36px 36px", WebkitMaskImage:"radial-gradient(ellipse 75% 75% at 50% 50%, black 0%, transparent 100%)", maskImage:"radial-gradient(ellipse 75% 75% at 50% 50%, black 0%, transparent 100%)" }}/>
       {/* Glows */}
       <div className="absolute w-[750px] h-[750px] rounded-full pointer-events-none z-0" style={{ background:"radial-gradient(circle, rgba(0,212,255,0.07) 0%, transparent 65%)", top:-200, right:-200 }}/>
       <div className="absolute w-[500px] h-[500px] rounded-full pointer-events-none z-0" style={{ background:"radial-gradient(circle, rgba(0,255,136,0.04) 0%, transparent 65%)", bottom:-100, left:-100 }}/>
@@ -164,7 +164,7 @@ export default function Hero() {
               <motion.span
                 whileHover={{ boxShadow: "0 8px 32px rgba(0,212,255,0.45)", scale: 1.04 }}
                 transition={{ duration: 0.25 }}
-                style={{ display:"inline-flex", alignItems:"center", gap:8, background:T.accent, color:"#000", padding:"12px 26px", borderRadius:9, fontFamily:T.display, fontWeight:700, fontSize:"0.88rem", cursor:"pointer" }}
+                style={{ display:"inline-flex", alignItems:"center", gap:8, background:T.accent, color:T.btnPrimaryText, padding:"12px 26px", borderRadius:9, fontFamily:T.display, fontWeight:700, fontSize:"0.88rem", cursor:"pointer" }}
               >
                 <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
                 View My Work
@@ -174,10 +174,20 @@ export default function Hero() {
               <motion.span
                 whileHover={{ borderColor:"rgba(255,255,255,0.30)", background:"rgba(255,255,255,0.05)", scale: 1.04 }}
                 transition={{ duration: 0.25 }}
-                style={{ display:"inline-flex", alignItems:"center", gap:8, background:"transparent", color:T.text, padding:"12px 26px", borderRadius:9, fontFamily:T.display, fontWeight:500, fontSize:"0.88rem", border:`1px solid rgba(255,255,255,0.14)`, cursor:"pointer" }}
+                style={{ display:"inline-flex", alignItems:"center", gap:8, background:"transparent", color:T.text, padding:"12px 26px", borderRadius:9, fontFamily:T.display, fontWeight:500, fontSize:"0.88rem", border:`1px solid ${T.heroBtnBorder}`, cursor:"pointer" }}
               >
                 <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/></svg>
                 Get In Touch
+              </motion.span>
+            </MagneticBtn>
+            <MagneticBtn href="/assets/Eknoor_Singh_Full_Stack_Developer.pdf" download="Eknoor_Singh_Resume.pdf">
+              <motion.span
+                whileHover={{ boxShadow:`0 8px 28px rgba(0,255,136,0.28)`, scale:1.04, borderColor:T.green }}
+                transition={{ duration: 0.25 }}
+                style={{ display:"inline-flex", alignItems:"center", gap:8, background:T.greenDim, color:T.green, padding:"12px 26px", borderRadius:9, fontFamily:T.display, fontWeight:600, fontSize:"0.88rem", border:`1px solid ${T.greenBorder}`, cursor:"pointer" }}
+              >
+                <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download CV
               </motion.span>
             </MagneticBtn>
           </motion.div>
@@ -186,9 +196,9 @@ export default function Hero() {
           <motion.div {...item(0.5)} className="flex gap-[10px]">
             {socialIcons.map(({ href, title, icon }) => (
               <a key={title} href={href} target={href.startsWith("http")?"_blank":undefined} rel="noreferrer" title={title}
-                style={{ display:"flex", alignItems:"center", justifyContent:"center", width:40, height:40, border:`1px solid rgba(255,255,255,0.12)`, borderRadius:10, color:T.muted, textDecoration:"none", transition:"all 0.3s" }}
+                style={{ display:"flex", alignItems:"center", justifyContent:"center", width:40, height:40, border:`1px solid ${T.subtleBorder}`, borderRadius:10, color:T.muted, textDecoration:"none", transition:"all 0.3s" }}
                 onMouseEnter={e=>{ e.currentTarget.style.borderColor=T.accentBorder; e.currentTarget.style.color=T.accent; e.currentTarget.style.background=T.accentDim; e.currentTarget.style.transform="translateY(-3px)"; e.currentTarget.style.boxShadow=`0 4px 20px ${T.accentGlow}`; }}
-                onMouseLeave={e=>{ e.currentTarget.style.borderColor="rgba(255,255,255,0.12)"; e.currentTarget.style.color=T.muted; e.currentTarget.style.background="transparent"; e.currentTarget.style.transform=""; e.currentTarget.style.boxShadow=""; }}
+                onMouseLeave={e=>{ e.currentTarget.style.borderColor=T.subtleBorder; e.currentTarget.style.color=T.muted; e.currentTarget.style.background="transparent"; e.currentTarget.style.transform=""; e.currentTarget.style.boxShadow=""; }}
               >{icon}</a>
             ))}
           </motion.div>

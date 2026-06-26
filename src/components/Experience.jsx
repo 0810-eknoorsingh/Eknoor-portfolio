@@ -5,7 +5,7 @@ import { data } from "../data";
 export default function Experience() {
   return (
     <section id="experience" className="py-[120px] px-10 max-sm:py-[80px] max-sm:px-6 bg-surface relative overflow-hidden border-y border-border">
-      <div className="absolute -right-5 -top-5 font-display font-[800] text-[22vw] leading-none select-none pointer-events-none" style={{ color:"rgba(255,255,255,0.015)" }}>03</div>
+      <div className="absolute -right-5 -top-5 font-display font-[800] text-[22vw] leading-none select-none pointer-events-none" style={{ color:"var(--ghost-text)" }}>03</div>
 
       <div className="max-w-[1200px] mx-auto relative">
         <SectionHeader label="Experience" title="Where I've worked" />
@@ -23,7 +23,7 @@ export default function Experience() {
                 {/* Center: timeline line + dot */}
                 <div className="flex flex-col items-center w-8 shrink-0">
                   <div className="w-2.5 h-2.5 rounded-full shrink-0 mt-[5px]" style={{ background: job.current ? T.accent : T.dim, boxShadow: job.current ? `0 0 0 3px ${T.surface}, 0 0 0 4.5px ${T.accent}, 0 0 12px ${T.accentGlow}` : `0 0 0 3px ${T.surface}, 0 0 0 4.5px ${T.dim}` }}/>
-                  {i < data.experience.length - 1 && <div className="w-px flex-1 mt-2" style={{ background:`linear-gradient(to bottom, rgba(0,212,255,0.3), rgba(255,255,255,0.06))` }}/>}
+                  {i < data.experience.length - 1 && <div className="w-px flex-1 mt-2" style={{ background:`linear-gradient(to bottom, ${T.accentBorder}, var(--dot-grid))` }}/>}
                 </div>
 
                 {/* Right: content */}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./index.css";
+import { ThemeProvider } from "./ThemeContext";
 import IntroScreen from "./components/IntroScreen";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -20,7 +21,7 @@ export default function App() {
   const [intro, setIntro] = useState(true);
 
   return (
-    <>
+    <ThemeProvider>
       <IntroScreen visible={intro} onDone={() => setIntro(false)} />
       <Cursor />
       <Navbar />
@@ -38,6 +39,6 @@ export default function App() {
       </main>
       <Footer />
       <ScrollTop />
-    </>
+    </ThemeProvider>
   );
 }

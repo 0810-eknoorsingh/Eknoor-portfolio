@@ -8,7 +8,7 @@ export default function Principles() {
   return (
     <section id="principles" className="py-[120px] px-10 max-sm:py-[80px] max-sm:px-6 relative overflow-hidden bg-bg">
 
-      <div className="absolute -right-5 -top-5 font-display font-[800] text-[22vw] leading-none select-none pointer-events-none" style={{ color: "rgba(255,255,255,0.015)" }}>08</div>
+      <div className="absolute -right-5 -top-5 font-display font-[800] text-[22vw] leading-none select-none pointer-events-none" style={{ color: "var(--ghost-text)" }}>05</div>
 
       <div className="max-w-[1200px] mx-auto relative">
         <SectionHeader label="Engineering" title="How I build systems" desc="The principles I apply to every codebase I touch — from first commit to production." />
@@ -25,7 +25,7 @@ export default function Principles() {
                 transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: i * 0.07 }}
                 whileHover={{ y: -4, borderColor: `${color}40`, boxShadow: `0 16px 48px rgba(0,0,0,.5), 0 0 24px ${color}18` }}
                 style={{
-                  background: "rgba(12,12,18,0.85)",
+                  background: T.cardBg,
                   border: `1px solid ${T.border}`,
                   borderRadius: 16,
                   padding: "28px 28px 26px",

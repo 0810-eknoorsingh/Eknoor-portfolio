@@ -59,7 +59,7 @@ function ArchDiagram({ layers }) {
             <div style={{
               display: "flex", flexDirection: "column", alignItems: "center", gap: "4px",
               padding: "8px 14px", borderRadius: "8px",
-              background: "rgba(255,255,255,0.03)",
+              background: T.watermark,
               border: `1px solid ${l.color}28`,
             }}>
               <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.72rem", color: l.color, fontWeight: 600 }}>{l.label}</span>
@@ -140,7 +140,7 @@ function ProjectCard({ proj }) {
         <SpotlightCard
           className="flex flex-col h-full"
           style={{
-            background: "rgba(12,12,18,0.85)",
+            background: T.cardBg,
             border: `1px solid ${open ? T.accentBorder : T.border}`,
             backdropFilter: "blur(24px)",
             WebkitBackdropFilter: "blur(24px)",
@@ -166,7 +166,7 @@ function ProjectCard({ proj }) {
           <div style={{ position: "absolute", top: -60, right: -60, width: 200, height: 200, borderRadius: "50%", pointerEvents: "none", background: `radial-gradient(circle, ${T.accentGlow} 0%, transparent 65%)` }} />
 
           {/* Project number watermark */}
-          <div style={{ position: "absolute", top: 16, right: 24, fontFamily: "'JetBrains Mono', monospace", fontSize: "3.2rem", fontWeight: 700, color: "rgba(255,255,255,0.03)", lineHeight: 1, userSelect: "none" }}>
+          <div style={{ position: "absolute", top: 16, right: 24, fontFamily: "'JetBrains Mono', monospace", fontSize: "3.2rem", fontWeight: 700, color: T.watermark, lineHeight: 1, userSelect: "none" }}>
             {proj.number}
           </div>
 
@@ -186,7 +186,7 @@ function ProjectCard({ proj }) {
           {/* Tech tags */}
           <div style={{ display: "flex", flexWrap: "wrap", gap: "7px", marginBottom: "20px" }}>
             {proj.tech.map((t) => (
-              <span key={t} style={{ padding: "3px 10px", borderRadius: 5, fontSize: "0.72rem", color: T.accent, fontFamily: "'JetBrains Mono', monospace", background: "rgba(0,212,255,0.05)", border: "1px solid rgba(0,212,255,0.15)" }}>
+              <span key={t} style={{ padding: "3px 10px", borderRadius: 5, fontSize: "0.72rem", color: T.accent, fontFamily: "'JetBrains Mono', monospace", background: T.accentDim, border: `1px solid ${T.accentBorder}` }}>
                 {t}
               </span>
             ))}
@@ -198,8 +198,8 @@ function ProjectCard({ proj }) {
               onClick={() => setOpen(o => !o)}
               style={{
                 display: "inline-flex", alignItems: "center", gap: "8px",
-                background: open ? "rgba(0,212,255,0.10)" : "rgba(255,255,255,0.04)",
-                border: `1px solid ${open ? T.accentBorder : "rgba(255,255,255,0.10)"}`,
+                background: open ? T.accentDim : T.tagBg,
+                border: `1px solid ${open ? T.accentBorder : T.subtleBorder}`,
                 borderRadius: "8px", padding: "8px 16px", cursor: "pointer",
                 fontFamily: "'Barlow', sans-serif", fontWeight: 600, fontSize: "0.78rem",
                 color: open ? T.accent : T.muted,
@@ -226,7 +226,7 @@ function ProjectCard({ proj }) {
 export default function Projects() {
   return (
     <section id="projects" className="py-[120px] px-10 max-sm:py-[80px] max-sm:px-6 bg-bg relative overflow-hidden">
-      <div className="absolute -left-5 -top-5 font-display font-[800] text-[22vw] leading-none select-none pointer-events-none" style={{ color: "rgba(255,255,255,0.015)" }}>04</div>
+      <div className="absolute -left-5 -top-5 font-display font-[800] text-[22vw] leading-none select-none pointer-events-none" style={{ color: "var(--ghost-text)" }}>04</div>
 
       <div className="max-w-[1200px] mx-auto relative">
         <SectionHeader label="Projects" title="What I've built" desc="Production-grade systems architected end-to-end. Click 'Explore Case Study' on any card for the full breakdown." />

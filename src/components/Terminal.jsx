@@ -5,14 +5,21 @@ import { data } from "../data";
 
 const { prompt, welcome, commands } = data.terminal;
 
+/* Terminal always has a dark background, so use fixed dark-theme values for all text */
+const TERM = {
+  text:    "#e2e8f0",
+  muted:   "#7a8599",
+  accent:  "#00d4ff",
+};
+
 function Line({ text, type = "output", href }) {
   const colors = {
-    output:  T.muted,
-    success: T.accent,
+    output:  TERM.muted,
+    success: TERM.accent,
     error:   "#f87171",
-    prompt:  T.text,
+    prompt:  TERM.text,
     welcome: "rgba(0,212,255,0.75)",
-    link:    T.accent,
+    link:    TERM.accent,
   };
   const base = {
     fontFamily: "'JetBrains Mono', monospace",
@@ -24,7 +31,7 @@ function Line({ text, type = "output", href }) {
   if (href) {
     return (
       <a href={href} target="_blank" rel="noreferrer"
-        style={{ ...base, color: T.accent, textDecoration: "none", display: "block" }}
+        style={{ ...base, color: TERM.accent, textDecoration: "none", display: "block" }}
         onMouseEnter={e => { e.currentTarget.style.textDecoration = "underline"; e.currentTarget.style.textUnderlineOffset = "3px"; }}
         onMouseLeave={e => { e.currentTarget.style.textDecoration = "none"; }}
       >
@@ -119,11 +126,10 @@ export default function Terminal() {
   const chips = ["help", "whoami", "skills", "experience", "projects", "metrics", "contact"];
 
   return (
-    <section id="terminal" className="py-[120px] px-10 max-sm:py-[80px] max-sm:px-6 relative overflow-hidden"
-      style={{ background: "rgba(6,6,8,1)" }}>
+    <section id="terminal" className="py-[120px] px-10 max-sm:py-[80px] max-sm:px-6 relative overflow-hidden bg-bg">
 
       {/* Section number watermark */}
-      <div className="absolute -right-5 -top-5 font-display font-[800] text-[22vw] leading-none select-none pointer-events-none" style={{ color: "rgba(255,255,255,0.015)" }}>06</div>
+      <div className="absolute -right-5 -top-5 font-display font-[800] text-[22vw] leading-none select-none pointer-events-none" style={{ color: "var(--ghost-text)" }}>06</div>
 
       <div className="max-w-[900px] mx-auto relative">
         <SectionHeader label="Terminal" title="Explore interactively" desc="Type a command or click a chip below. Use ↑↓ for history, Tab to autocomplete." />
@@ -136,7 +142,7 @@ export default function Terminal() {
         >
           {/* Terminal window */}
           <div style={{
-            background: "rgba(8,8,12,0.95)",
+            background: T.codeCard,
             border: `1px solid ${T.border}`,
             borderRadius: 16,
             overflow: "hidden",
@@ -149,7 +155,7 @@ export default function Terminal() {
                 <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#febc2e", display: "block" }} />
                 <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#28c840", display: "block" }} />
               </div>
-              <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.70rem", color: T.dim }}>eknoor@portfolio — bash</span>
+              <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.70rem", color: TERM.muted }}>eknoor@portfolio — bash</span>
               <span style={{ width: 46 }} />
             </div>
 
@@ -165,7 +171,7 @@ export default function Terminal() {
 
               {/* Active input line */}
               <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "4px" }}>
-                <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.80rem", color: T.accent, flexShrink: 0 }}>{prompt}</span>
+                <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.80rem", color: TERM.accent, flexShrink: 0 }}>{prompt}</span>
                 <input
                   ref={inputRef}
                   value={input}
@@ -175,7 +181,7 @@ export default function Terminal() {
                   style={{
                     background: "transparent", border: "none", outline: "none",
                     fontFamily: "'JetBrains Mono', monospace", fontSize: "0.80rem",
-                    color: T.text, flex: 1, caretColor: T.accent,
+                    color: TERM.text, flex: 1, caretColor: TERM.accent,
                   }}
                 />
               </div>
@@ -190,12 +196,12 @@ export default function Terminal() {
                 onClick={() => { setInput(chip); setTimeout(() => run(chip), 0); }}
                 style={{
                   fontFamily: "'JetBrains Mono', monospace", fontSize: "0.72rem",
-                  color: T.muted, background: "rgba(255,255,255,0.03)",
-                  border: `1px solid ${T.border}`, borderRadius: 6,
+                  color: TERM.muted, background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,255,255,0.08)", borderRadius: 6,
                   padding: "5px 12px", cursor: "pointer", transition: "all 0.2s",
                 }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = T.accentBorder; e.currentTarget.style.color = T.accent; e.currentTarget.style.background = T.accentDim; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = T.border; e.currentTarget.style.color = T.muted; e.currentTarget.style.background = "rgba(255,255,255,0.03)"; }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = "rgba(0,212,255,0.25)"; e.currentTarget.style.color = TERM.accent; e.currentTarget.style.background = "rgba(0,212,255,0.08)"; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; e.currentTarget.style.color = TERM.muted; e.currentTarget.style.background = "rgba(255,255,255,0.04)"; }}
               >
                 {chip}
               </button>

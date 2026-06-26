@@ -29,7 +29,7 @@ export default function About() {
   return (
     <section id="about" className="py-[120px] px-10 max-sm:py-[80px] max-sm:px-6 bg-surface relative overflow-hidden border-y border-border">
       {/* Ghost number */}
-      <div className="absolute -right-5 -top-5 font-display font-[800] text-[22vw] leading-none select-none pointer-events-none" style={{ color:"rgba(255,255,255,0.015)" }}>01</div>
+      <div className="absolute -right-5 -top-5 font-display font-[800] text-[22vw] leading-none select-none pointer-events-none" style={{ color:"var(--ghost-text)" }}>01</div>
 
       <div className="max-w-[1200px] mx-auto relative">
         <SectionHeader label="About Me" title={<>Building reliable software<br/>for real-world problems</>} />

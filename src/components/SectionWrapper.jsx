@@ -1,26 +1,39 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
-/* Shared design tokens used across all components */
+/* Shared design tokens — all values are CSS variables so light/dark theme updates automatically */
 export const T = {
-  accent:      "#00d4ff",
-  accentDim:   "rgba(0,212,255,0.08)",
-  accentGlow:  "rgba(0,212,255,0.18)",
-  accentBorder:"rgba(0,212,255,0.25)",
-  green:       "#00ff88",
-  greenDim:    "rgba(0,255,136,0.08)",
-  greenBorder: "rgba(0,255,136,0.22)",
-  bg:          "#060608",
-  surface:     "#0b0b0e",
-  card:        "rgba(255,255,255,0.025)",
-  cardSolid:   "#0f0f14",
-  border:      "rgba(255,255,255,0.07)",
-  borderHover: "rgba(0,212,255,0.28)",
-  text:        "#e2e8f0",
-  muted:       "#7a8599",
-  dim:         "#3d4556",
-  display:     "'Barlow', sans-serif",
-  mono:        "'JetBrains Mono', monospace",
+  accent:        "var(--color-accent)",
+  accentDim:     "var(--color-accent-dim)",
+  accentGlow:    "var(--color-accent-glow)",
+  accentBorder:  "var(--color-accent-border)",
+  green:         "var(--color-green)",
+  greenDim:      "var(--color-green-dim)",
+  greenBorder:   "var(--color-green-border)",
+  bg:            "var(--color-bg)",
+  surface:       "var(--color-surface)",
+  card:          "var(--color-card)",
+  cardSolid:     "var(--color-card-solid)",
+  border:        "var(--color-border)",
+  borderHover:   "var(--color-border-hover)",
+  text:          "var(--color-text)",
+  muted:         "var(--color-muted)",
+  dim:           "var(--color-dim)",
+  display:       "'Barlow', sans-serif",
+  mono:          "'JetBrains Mono', monospace",
+  // extra semantic vars for hardcoded rgba values in components
+  ghost:         "var(--ghost-text)",
+  dotGrid:       "var(--dot-grid)",
+  tagBg:         "var(--tag-bg)",
+  tagBorder:     "var(--tag-border)",
+  subtleBorder:  "var(--subtle-border)",
+  heroBtnBorder: "var(--hero-btn-border)",
+  cardBg:        "var(--card-bg)",
+  codeCard:      "var(--code-card)",
+  watermark:     "var(--watermark)",
+  navScrolledBg:   "var(--nav-scrolled-bg)",
+  menuOverlayBg:   "var(--menu-overlay-bg)",
+  btnPrimaryText:  "var(--btn-primary-text)",
 };
 
 /* ── Scroll reveal wrappers ── */
