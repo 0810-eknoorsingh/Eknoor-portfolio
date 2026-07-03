@@ -1,34 +1,34 @@
 export const data = {
   name: "Eknoor Singh",
-  title: "Full Stack Engineer",
+  title: "Software Development Engineer",
   email: "eknoor.singh.dev@gmail.com",
   phone: "+91 99884 50529",
-  github: "https://github.com/eknoor-singh",        // ← update username
-  githubUsername: "eknoor-singh",                    // ← update username
-  linkedin: "https://linkedin.com/in/eknoor-singh",  // ← update slug
+  github: "https://github.com/0810-eknoorsingh",
+  githubUsername: "0810-eknoorsingh",
+  linkedin: "https://www.linkedin.com/in/eknoorsingh0810/",
   location: "Mohali, India",
-  bio: "Software Development Engineer with 1+ year building production-grade web applications for live client projects. I craft scalable APIs, responsive UIs, and reliable systems — from database design to deployment.",
+  bio: "Software Development Engineer with 2 years building production-grade web applications for live client projects. I build scalable APIs, responsive UIs, and reliable systems — from database design to deployment.",
 
   roles: ["Full Stack Engineer", "React Developer", "Node.js Developer", "API Architect", "TypeScript Developer"],
 
   /* ── Stats (About section) ── */
   stats: [
-    { value: 2,  suffix: "+", label: "Year of professional experience" },
-    { value: 1000, suffix: "+", label: "REST APIs developed" },
-    { value: 8,  suffix: "",  label: "Production systems shipped" },
+    { value: 2,  suffix: "",  label: "Years of professional experience" },
+    { value: 25, suffix: "+", label: "REST APIs developed" },
+    { value: 2,  suffix: "",  label: "Production systems shipped" },
     { value: 10, suffix: "+", label: "Technologies in my stack" },
   ],
 
   /* ── Metrics bar (hero / about) ── */
   metrics: [
     { value: "25+",  label: "REST APIs Built" },
-    { value: "3",    label: "Production Systems" },
+    { value: "2",    label: "Production Systems" },
     { value: "10+",  label: "Technologies" },
-    { value: "1+",   label: "Year Experience" },
+    { value: "2",    label: "Years Experience" },
   ],
 
   about: [
-    "I'm a <strong>Software Development Engineer</strong> with over a year of hands-on experience building and shipping production-grade web applications for live client projects at <strong>DigiMantra Labs, Mohali</strong>.",
+    "I'm a <strong>Software Development Engineer</strong> with two years of hands-on experience building and shipping production-grade web applications for live client projects at <strong>DigiMantra Labs, Mohali</strong>.",
     "My work spans the full stack — from designing <strong>scalable backend APIs</strong> and optimizing database queries, to building <strong>responsive, accessible front-ends</strong> with React and Next.js. I care deeply about performance, security, and long-term maintainability.",
     "I graduated from <strong>Thapar Institute of Engineering and Technology</strong> with a B.E. in Computer Science Engineering and thrive in fast-paced environments where I can ship features that make a real impact.",
   ],
@@ -117,7 +117,7 @@ export const data = {
         "Subscription-driven digital marketplace with secure payments and automated library provisioning",
         "End-to-end creator publishing & payout workflow with admin approvals and automated disbursements",
       ],
-      tech: ["TypeScript", "Next.js", "MongoDB", "Node.js", "JWT", "RBAC"],
+      tech: ["TypeScript", "Next.js", "MongoDB", "Node.js", "Stripe", "JWT", "RBAC"],
       caseStudy: {
         problem:
           "RPG content creators had no dedicated platform to monetise digital assets — they were selling through generic marketplaces with no character management, subscription billing, or automated payout systems.",
@@ -255,9 +255,9 @@ export const data = {
       whoami: {
         output: [
           "Eknoor Singh",
-          "Full Stack Engineer — DigiMantra Labs, Mohali",
+          "Software Development Engineer — DigiMantra Labs, Mohali",
           "",
-          "1+ year building production-grade systems.",
+          "2 years building production-grade systems.",
           "Focused on APIs, backend architecture, and scalable data design.",
         ],
       },
@@ -295,17 +295,17 @@ export const data = {
       contact: {
         output: [
           { text: "Email    →  eknoor.singh.dev@gmail.com",   href: "mailto:eknoor.singh.dev@gmail.com" },
-          { text: "GitHub   →  github.com/eknoor-singh",     href: "https://github.com/eknoor-singh" },
-          { text: "LinkedIn →  linkedin.com/in/eknoor-singh", href: "https://linkedin.com/in/eknoor-singh" },
+          { text: "GitHub   →  github.com/0810-eknoorsingh",      href: "https://github.com/0810-eknoorsingh" },
+          { text: "LinkedIn →  linkedin.com/in/eknoorsingh0810", href: "https://www.linkedin.com/in/eknoorsingh0810/" },
           { text: "Location →  Mohali, Punjab, India", href: "https://www.google.com/maps/place/Mohali,+Punjab" },
         ],
       },
       metrics: {
         output: [
-          "1000+  REST APIs developed",
-          "8    Production systems shipped",
+          "25+  REST APIs developed",
+          "2    Production systems shipped",
           "10+  Technologies in stack",
-          "2+   Year of professional experience",
+          "2    Years of professional experience",
         ],
       },
     },

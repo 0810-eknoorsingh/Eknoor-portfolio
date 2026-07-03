@@ -1,6 +1,16 @@
-import { useRef, useMemo, Suspense } from "react";
+import { useRef, useMemo, useEffect, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+
+/* Deterministic PRNG — keeps render pure (same cloud every render) */
+function mulberry32(seed) {
+  return function () {
+    let t = (seed += 0x6d2b79f5);
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
 
 /* ── Floating wireframe geometry ── */
 function FloatingShape({ type, position, scale, rotSpeedX, rotSpeedY, color, opacity, floatOffset }) {
@@ -34,25 +44,36 @@ function FloatingShape({ type, position, scale, rotSpeedX, rotSpeedY, color, opa
 /* ── Floating point cloud ── */
 function PointCloud({ count = 80 }) {
   const ref = useRef();
-  const [positions, velocities] = useMemo(() => {
+
+  const positions = useMemo(() => {
+    const rand = mulberry32(1337);
     const pos = new Float32Array(count * 3);
-    const vel = [];
     for (let i = 0; i < count; i++) {
-      pos[i * 3]     = (Math.random() - 0.5) * 22;
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 14;
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 8 - 2;
-      vel.push((Math.random() - 0.5) * 0.003, (Math.random() - 0.5) * 0.003);
+      pos[i * 3]     = (rand() - 0.5) * 22;
+      pos[i * 3 + 1] = (rand() - 0.5) * 14;
+      pos[i * 3 + 2] = (rand() - 0.5) * 8 - 2;
     }
-    return [pos, vel];
+    return pos;
+  }, [count]);
+
+  // Velocities are mutable simulation state, not render data — keep them in a ref.
+  const velRef = useRef(null);
+  useEffect(() => {
+    const rand = mulberry32(7331);
+    const vel = new Float32Array(count * 2);
+    for (let i = 0; i < count * 2; i++) vel[i] = (rand() - 0.5) * 0.003;
+    velRef.current = vel;
   }, [count]);
 
   useFrame(() => {
+    const vel = velRef.current;
+    if (!vel || !ref.current) return;
     const pos = ref.current.geometry.attributes.position.array;
     for (let i = 0; i < count; i++) {
-      pos[i * 3]     += velocities[i * 2];
-      pos[i * 3 + 1] += velocities[i * 2 + 1];
-      if (Math.abs(pos[i * 3])     > 11) velocities[i * 2]     *= -1;
-      if (Math.abs(pos[i * 3 + 1]) > 7)  velocities[i * 2 + 1] *= -1;
+      pos[i * 3]     += vel[i * 2];
+      pos[i * 3 + 1] += vel[i * 2 + 1];
+      if (Math.abs(pos[i * 3])     > 11) vel[i * 2]     *= -1;
+      if (Math.abs(pos[i * 3 + 1]) > 7)  vel[i * 2 + 1] *= -1;
     }
     ref.current.geometry.attributes.position.needsUpdate = true;
   });
@@ -71,7 +92,7 @@ function PointCloud({ count = 80 }) {
 function Scene() {
   const group = useRef();
 
-  useFrame(({ mouse, clock }) => {
+  useFrame(({ mouse }) => {
     // Smooth mouse-driven rotation
     group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, mouse.y * 0.14, 0.04);
     group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, mouse.x * 0.18, 0.04);
@@ -97,12 +118,13 @@ function Scene() {
   );
 }
 
-export default function ThreeScene() {
+export default function ThreeScene({ active = true }) {
   return (
     <Canvas
       camera={{ position: [0, 0, 9], fov: 55 }}
       gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
       dpr={[1, 1.5]}
+      frameloop={active ? "always" : "never"}
       style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none" }}
     >
       <Suspense fallback={null}>

@@ -1,4 +1,3 @@
-import { T } from "./SectionWrapper";
 import { data } from "../data";
 
 export default function Footer() {
@@ -6,7 +5,7 @@ export default function Footer() {
     <footer className="border-t border-border py-6 px-10 max-sm:py-5 max-sm:px-6">
       <div className="max-w-[1200px] mx-auto flex items-center justify-between flex-wrap gap-3">
         <p className="font-mono text-[0.81rem] text-dim">
-          Designed &amp; built by <span className="text-accent">Eknoor Singh</span> · <span className="text-accent">2025</span>
+          Designed &amp; built by <span className="text-accent">Eknoor Singh</span> · <span className="text-accent">{new Date().getFullYear()}</span>
         </p>
         <div className="flex gap-5">
           <button

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
-import { T, SectionHeader } from "./SectionWrapper";
+import { T } from "../theme";
+import { SectionHeader } from "./SectionWrapper";
 import { data } from "../data";
 
 const { prompt, welcome, commands } = data.terminal;
@@ -178,6 +179,8 @@ export default function Terminal() {
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={handleKey}
                   spellCheck={false}
+                  aria-label="Terminal command input"
+                  autoComplete="off"
                   style={{
                     background: "transparent", border: "none", outline: "none",
                     fontFamily: "'JetBrains Mono', monospace", fontSize: "0.80rem",

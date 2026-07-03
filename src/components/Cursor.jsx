@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
 
+const HOVER_SELECTOR = "a, button, [data-hover]";
+
 export default function Cursor() {
   const curRef = useRef(null);
   const follRef = useRef(null);
@@ -12,52 +14,68 @@ export default function Cursor() {
     const foll = follRef.current;
     if (!cur || !foll) return;
 
-    cur.style.opacity = "1";
-    foll.style.opacity = "1";
+    let rafId = null;
+    let hovering = false;
+
+    const animate = () => {
+      const p = pos.current;
+      p.fx += (p.x - p.fx) * 0.13;
+      p.fy += (p.y - p.fy) * 0.13;
+      foll.style.left = p.fx + "px";
+      foll.style.top = p.fy + "px";
+      // Stop the loop once the follower has converged; mousemove restarts it.
+      if (Math.abs(p.x - p.fx) < 0.3 && Math.abs(p.y - p.fy) < 0.3) {
+        rafId = null;
+        return;
+      }
+      rafId = requestAnimationFrame(animate);
+    };
 
     const onMove = (e) => {
       pos.current.x = e.clientX;
       pos.current.y = e.clientY;
+      cur.style.opacity = "1";
+      foll.style.opacity = "1";
       cur.style.left = e.clientX + "px";
       cur.style.top = e.clientY + "px";
+      if (rafId === null) rafId = requestAnimationFrame(animate);
     };
 
-    document.addEventListener("mousemove", onMove);
-
-    let rafId;
-    const animate = () => {
-      pos.current.fx += (pos.current.x - pos.current.fx) * 0.13;
-      pos.current.fy += (pos.current.y - pos.current.fy) * 0.13;
-      foll.style.left = pos.current.fx + "px";
-      foll.style.top = pos.current.fy + "px";
-      rafId = requestAnimationFrame(animate);
-    };
-    animate();
-
-    const onEnter = () => {
-      cur.style.width = "14px";
-      cur.style.height = "14px";
-      cur.style.background = "transparent";
-      cur.style.border = "2px solid #00d4ff";
-      foll.style.width = "46px";
-      foll.style.height = "46px";
-    };
-    const onLeave = () => {
-      cur.style.width = "9px";
-      cur.style.height = "9px";
-      cur.style.background = "#00d4ff";
-      cur.style.border = "none";
-      foll.style.width = "28px";
-      foll.style.height = "28px";
+    const setHover = (on) => {
+      if (on) {
+        cur.style.width = "14px";
+        cur.style.height = "14px";
+        cur.style.background = "transparent";
+        cur.style.border = "2px solid #00d4ff";
+        foll.style.width = "46px";
+        foll.style.height = "46px";
+      } else {
+        cur.style.width = "9px";
+        cur.style.height = "9px";
+        cur.style.background = "#00d4ff";
+        cur.style.border = "none";
+        foll.style.width = "28px";
+        foll.style.height = "28px";
+      }
     };
 
-    const els = document.querySelectorAll("a, button, [data-hover]");
-    els.forEach((el) => { el.addEventListener("mouseenter", onEnter); el.addEventListener("mouseleave", onLeave); });
+    // Event delegation: works for elements mounted at any time
+    // (mobile menu, scroll-to-top button, case-study content, …).
+    const onOver = (e) => {
+      const hot = !!e.target.closest?.(HOVER_SELECTOR);
+      if (hot !== hovering) {
+        hovering = hot;
+        setHover(hot);
+      }
+    };
+
+    document.addEventListener("mousemove", onMove, { passive: true });
+    document.addEventListener("mouseover", onOver, { passive: true });
 
     return () => {
       document.removeEventListener("mousemove", onMove);
-      cancelAnimationFrame(rafId);
-      els.forEach((el) => { el.removeEventListener("mouseenter", onEnter); el.removeEventListener("mouseleave", onLeave); });
+      document.removeEventListener("mouseover", onOver);
+      if (rafId !== null) cancelAnimationFrame(rafId);
     };
   }, []);
 
@@ -65,11 +83,13 @@ export default function Cursor() {
     <>
       <div
         ref={curRef}
+        aria-hidden="true"
         className="fixed z-[9999] rounded-full pointer-events-none -translate-x-1/2 -translate-y-1/2 opacity-0 transition-[width,height,background,border] duration-200"
         style={{ width: 9, height: 9, background: "#00d4ff" }}
       />
       <div
         ref={follRef}
+        aria-hidden="true"
         className="fixed z-[9998] rounded-full pointer-events-none -translate-x-1/2 -translate-y-1/2 opacity-0 border border-[#00d4ff]/35 transition-[width,height] duration-200"
         style={{ width: 28, height: 28 }}
       />

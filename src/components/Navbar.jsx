@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { T } from "./SectionWrapper";
-import { useTheme } from "../ThemeContext";
+import { T, useTheme } from "../theme";
 
 function SunIcon() {
   return (
@@ -31,14 +30,27 @@ export default function Navbar() {
   const { isDark, toggleTheme }   = useTheme();
 
   useEffect(() => {
-    const fn = () => {
-      setScrolled(window.scrollY > 50);
-      document.querySelectorAll("section[id]").forEach((s) => {
-        if (window.scrollY >= s.offsetTop - 130) setActive(s.id);
-      });
-    };
+    const fn = () => setScrolled(window.scrollY > 50);
+    fn();
     window.addEventListener("scroll", fn, { passive: true });
     return () => window.removeEventListener("scroll", fn);
+  }, []);
+
+  // Track the active section with an IntersectionObserver instead of reading
+  // section offsets on every scroll event (avoids forced reflows).
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      },
+      // A thin horizontal band near the top third of the viewport decides
+      // which section is "active" — mirrors the old offsetTop - 130 logic.
+      { rootMargin: "-25% 0px -65% 0px" }
+    );
+    document.querySelectorAll("section[id]").forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => { document.body.style.overflow = menuOpen ? "hidden" : ""; }, [menuOpen]);
@@ -107,6 +119,8 @@ export default function Navbar() {
 
           {/* Hamburger */}
           <button onClick={()=>setMenuOpen(true)}
+            aria-label="Open navigation menu"
+            aria-expanded={menuOpen}
             className="flex md:hidden flex-col gap-[5px] bg-transparent border-none cursor-pointer p-1"
           >
             <span className="block w-[22px] h-0.5 bg-text rounded-[2px]"/>
@@ -125,6 +139,7 @@ export default function Navbar() {
             style={{ background: T.menuOverlayBg }}
           >
             <button onClick={()=>setMenuOpen(false)}
+              aria-label="Close navigation menu"
               className="absolute top-6 right-7 text-2xl text-muted bg-transparent border-none cursor-pointer"
             >✕</button>
             {links.map((link, i) => (

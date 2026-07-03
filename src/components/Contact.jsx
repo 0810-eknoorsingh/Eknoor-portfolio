@@ -1,7 +1,8 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
-import { T, FadeUp, SlideLeft, SlideRight, SectionHeader } from "./SectionWrapper";
+import { T } from "../theme";
+import { SlideLeft, SlideRight, SectionHeader } from "./SectionWrapper";
 import { data } from "../data";
 
 const contactLinks = [
@@ -121,18 +122,20 @@ export default function Contact() {
                 {/* Name + Email */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-[6px]">
-                    <label className="font-mono text-[0.70rem] text-dim uppercase tracking-[0.1em]">Full Name *</label>
+                    <label htmlFor="contact-name" className="font-mono text-[0.70rem] text-dim uppercase tracking-[0.1em]">Full Name *</label>
                     <input
                       className="contact-field"
-                      type="text" name="name" placeholder="Eknoor Singh"
+                      id="contact-name" type="text" name="name" placeholder="Eknoor Singh"
+                      autoComplete="name"
                       value={form.name} onChange={handleChange} required
                     />
                   </div>
                   <div className="flex flex-col gap-[6px]">
-                    <label className="font-mono text-[0.70rem] text-dim uppercase tracking-[0.1em]">Email *</label>
+                    <label htmlFor="contact-email" className="font-mono text-[0.70rem] text-dim uppercase tracking-[0.1em]">Email *</label>
                     <input
                       className="contact-field"
-                      type="email" name="email" placeholder="you@example.com"
+                      id="contact-email" type="email" name="email" placeholder="you@example.com"
+                      autoComplete="email"
                       value={form.email} onChange={handleChange} required
                     />
                   </div>
@@ -140,20 +143,21 @@ export default function Contact() {
 
                 {/* Phone */}
                 <div className="flex flex-col gap-[6px]">
-                  <label className="font-mono text-[0.70rem] text-dim uppercase tracking-[0.1em]">Phone Number</label>
+                  <label htmlFor="contact-phone" className="font-mono text-[0.70rem] text-dim uppercase tracking-[0.1em]">Phone Number</label>
                   <input
                     className="contact-field"
-                    type="tel" name="phone" placeholder="+91 98765 43210"
+                    id="contact-phone" type="tel" name="phone" placeholder="+91 98765 43210"
+                    autoComplete="tel"
                     value={form.phone} onChange={handleChange}
                   />
                 </div>
 
                 {/* Message */}
                 <div className="flex flex-col gap-[6px]">
-                  <label className="font-mono text-[0.70rem] text-dim uppercase tracking-[0.1em]">Message *</label>
+                  <label htmlFor="contact-message" className="font-mono text-[0.70rem] text-dim uppercase tracking-[0.1em]">Message *</label>
                   <textarea
                     className="contact-field"
-                    name="message" rows={5} placeholder="Tell me about your project or opportunity..."
+                    id="contact-message" name="message" rows={5} placeholder="Tell me about your project or opportunity..."
                     value={form.message} onChange={handleChange} required
                   />
                 </div>

@@ -1,40 +1,6 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-
-/* Shared design tokens — all values are CSS variables so light/dark theme updates automatically */
-export const T = {
-  accent:        "var(--color-accent)",
-  accentDim:     "var(--color-accent-dim)",
-  accentGlow:    "var(--color-accent-glow)",
-  accentBorder:  "var(--color-accent-border)",
-  green:         "var(--color-green)",
-  greenDim:      "var(--color-green-dim)",
-  greenBorder:   "var(--color-green-border)",
-  bg:            "var(--color-bg)",
-  surface:       "var(--color-surface)",
-  card:          "var(--color-card)",
-  cardSolid:     "var(--color-card-solid)",
-  border:        "var(--color-border)",
-  borderHover:   "var(--color-border-hover)",
-  text:          "var(--color-text)",
-  muted:         "var(--color-muted)",
-  dim:           "var(--color-dim)",
-  display:       "'Barlow', sans-serif",
-  mono:          "'JetBrains Mono', monospace",
-  // extra semantic vars for hardcoded rgba values in components
-  ghost:         "var(--ghost-text)",
-  dotGrid:       "var(--dot-grid)",
-  tagBg:         "var(--tag-bg)",
-  tagBorder:     "var(--tag-border)",
-  subtleBorder:  "var(--subtle-border)",
-  heroBtnBorder: "var(--hero-btn-border)",
-  cardBg:        "var(--card-bg)",
-  codeCard:      "var(--code-card)",
-  watermark:     "var(--watermark)",
-  navScrolledBg:   "var(--nav-scrolled-bg)",
-  menuOverlayBg:   "var(--menu-overlay-bg)",
-  btnPrimaryText:  "var(--btn-primary-text)",
-};
+import { T } from "../theme";
 
 /* ── Scroll reveal wrappers ── */
 export function FadeUp({ children, delay = 0, className = "" }) {
@@ -53,22 +19,6 @@ export function FadeUp({ children, delay = 0, className = "" }) {
   );
 }
 
-export function FadeIn({ children, delay = 0, className = "" }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px 0px" });
-  return (
-    <motion.div
-      ref={ref}
-      className={className}
-      initial={{ opacity: 0 }}
-      animate={inView ? { opacity: 1 } : {}}
-      transition={{ duration: 0.7, delay, ease: "easeOut" }}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
 export function Stagger({ children, className = "", style = {} }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-50px 0px" });
@@ -80,26 +30,6 @@ export function Stagger({ children, className = "", style = {} }) {
       initial="hidden"
       animate={inView ? "show" : "hidden"}
       variants={{ show: { transition: { staggerChildren: 0.1 } } }}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-export const itemV = {
-  hidden: { opacity: 0, y: 28 },
-  show:   { opacity: 1, y: 0, transition: { duration: 0.60, ease: [0.22, 1, 0.36, 1] } },
-};
-
-/* Stagger with larger child delay — for cards that need more breathing room */
-export function StaggerGrid({ children, className = "", style = {}, delay = 0.12 }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-50px 0px" });
-  return (
-    <motion.div
-      ref={ref} className={className} style={style}
-      initial="hidden" animate={inView ? "show" : "hidden"}
-      variants={{ show: { transition: { staggerChildren: delay } } }}
     >
       {children}
     </motion.div>
@@ -136,21 +66,6 @@ export function SlideRight({ children, delay = 0, className = "" }) {
   );
 }
 
-/* Scale up reveal */
-export function ScaleUp({ children, delay = 0, className = "" }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-40px 0px" });
-  return (
-    <motion.div ref={ref} className={className}
-      initial={{ opacity: 0, scale: 0.93 }}
-      animate={inView ? { opacity: 1, scale: 1 } : {}}
-      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
 /* ── Section label + heading ── */
 export function SectionHeader({ label, title, desc, center = false }) {
   return (
@@ -180,26 +95,5 @@ export function SectionHeader({ label, title, desc, center = false }) {
         <p style={{ color: T.muted, fontSize: "0.975rem", maxWidth: 520, lineHeight: 1.8 }}>{desc}</p>
       )}
     </FadeUp>
-  );
-}
-
-/* ── Glassmorphism card base ── */
-export function GlassCard({ children, className = "", style = {}, hover = true }) {
-  return (
-    <motion.div
-      whileHover={hover ? { y: -5, borderColor: T.borderHover, boxShadow: `0 20px 60px rgba(0,0,0,.5), 0 0 30px ${T.accentGlow}` } : {}}
-      transition={{ duration: 0.3 }}
-      className={className}
-      style={{
-        background: T.card,
-        border: `1px solid ${T.border}`,
-        backdropFilter: "blur(20px)",
-        WebkitBackdropFilter: "blur(20px)",
-        borderRadius: 18,
-        ...style,
-      }}
-    >
-      {children}
-    </motion.div>
   );
 }

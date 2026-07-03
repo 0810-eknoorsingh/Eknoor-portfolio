@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { T, SectionHeader } from "./SectionWrapper";
+import { T } from "../theme";
+import { SectionHeader } from "./SectionWrapper";
 import { data } from "../data";
 
 const accentCycle = ["#00d4ff", "#00ff88", "#a78bfa", "#00d4ff", "#f59e0b", "#00ff88"];

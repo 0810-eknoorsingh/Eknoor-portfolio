@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { T, FadeUp, Stagger, itemV, SectionHeader } from "./SectionWrapper";
+import { T, itemV } from "../theme";
+import { FadeUp, Stagger, SectionHeader } from "./SectionWrapper";
 import { data } from "../data";
 
 function Counter({ target, suffix }) {

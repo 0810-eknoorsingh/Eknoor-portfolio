@@ -144,3 +144,39 @@ body {
   box-shadow: 0 0 0 3px var(--color-accent-dim);
   background: var(--color-card);
 }
+
+/* ── Tech logo marquee ── */
+@keyframes techScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.tech-marquee-mask {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.tech-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  animation: techScroll 40s linear infinite;
+  padding-block: 7px;
+}
+.tech-track:hover { animation-play-state: paused; }
+.tech-logo {
+  height: 38px;
+  width: auto;
+  margin: 0 28px;
+  flex-shrink: 0;
+  /* desaturate but keep logo detail; reveal color on hover */
+  filter: grayscale(1);
+  opacity: 0.5;
+  transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+}
+.tech-logo:hover {
+  filter: none;          /* reveal true brand color */
+  opacity: 1;
+  transform: translateY(-5px) scale(1.14);
+}
+@media (prefers-reduced-motion: reduce) {
+  .tech-track { animation: none; }
+}
