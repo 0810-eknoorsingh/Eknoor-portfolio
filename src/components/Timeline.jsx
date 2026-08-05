@@ -1,12 +1,15 @@
 import { motion } from "framer-motion";
-import { T, SectionHeader } from "./SectionWrapper";
+import { T } from "../theme";
+import { SectionHeader } from "./SectionWrapper";
 import { data } from "../data";
 
+/* Literal hex values only — these get hex-alpha suffixes appended below
+   (`${color}14`), which breaks silently with CSS var() references. */
 const typeColor = {
   education: "#a78bfa",
-  work:       T.accent,
-  milestone:  "#00ff88",
-  project:    "#f59e0b",
+  work:      "#00d4ff",
+  milestone: "#00ff88",
+  project:   "#f59e0b",
 };
 
 const typeLabel = {

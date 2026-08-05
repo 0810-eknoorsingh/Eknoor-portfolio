@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { T, FadeUp, SectionHeader } from "./SectionWrapper";
+import { T } from "../theme";
+import { FadeUp, SectionHeader } from "./SectionWrapper";
 import { data } from "../data";
 
 export default function Experience() {

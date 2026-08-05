@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { T } from "./SectionWrapper";
+import { T } from "../theme";
 
 export default function ScrollTop() {
   const [vis, setVis] = useState(false);

@@ -1,6 +1,7 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { ThemeCtx } from "./theme";
 
-const ThemeCtx = createContext(null);
+const THEME_COLOR = { dark: "#060608", light: "#f8fafc" };
 
 export function ThemeProvider({ children }) {
   const [isDark, setIsDark] = useState(() => {
@@ -9,9 +10,12 @@ export function ThemeProvider({ children }) {
   });
 
   useEffect(() => {
-    document.documentElement.dataset.theme = isDark ? "dark" : "light";
-    try { localStorage.setItem("portfolio-theme", isDark ? "dark" : "light"); }
-    catch {}
+    const theme = isDark ? "dark" : "light";
+    document.documentElement.dataset.theme = theme;
+    // Keep the browser UI (mobile address bar) in sync with the active theme
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", THEME_COLOR[theme]);
+    try { localStorage.setItem("portfolio-theme", theme); }
+    catch { /* localStorage unavailable (private mode) — theme just won't persist */ }
   }, [isDark]);
 
   return (
@@ -20,5 +24,3 @@ export function ThemeProvider({ children }) {
     </ThemeCtx.Provider>
   );
 }
-
-export const useTheme = () => useContext(ThemeCtx);

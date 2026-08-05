@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from "framer-motion";
-import { T, Stagger, itemV, SectionHeader } from "./SectionWrapper";
+import { T, itemV } from "../theme";
+import { Stagger, SectionHeader } from "./SectionWrapper";
 import { data } from "../data";
 
 /* ── 3-D tilt card ── */

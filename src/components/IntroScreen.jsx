@@ -178,7 +178,7 @@ export default function IntroScreen({ visible, onDone }) {
                 marginTop: "0.9rem",
               }}
             >
-              Full Stack Engineer &nbsp;·&nbsp; Mohali, India
+              Software Development Engineer &nbsp;·&nbsp; Mohali, India
             </motion.p>
           </motion.div>
 

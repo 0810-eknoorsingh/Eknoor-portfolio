@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./index.css";
+import { MotionConfig } from "framer-motion";
 import { ThemeProvider } from "./ThemeContext";
 import IntroScreen from "./components/IntroScreen";
 import Navbar from "./components/Navbar";
@@ -18,27 +18,40 @@ import Cursor from "./components/Cursor";
 import ScrollTop from "./components/ScrollTop";
 
 export default function App() {
-  const [intro, setIntro] = useState(true);
+  // Show the intro only on a visitor's first visit. Repeat visits (and
+  // recruiters who come back) skip straight to content — no friction.
+  const [intro, setIntro] = useState(() => {
+    try { return localStorage.getItem("portfolio-intro-seen") !== "1"; }
+    catch { return true; }
+  });
+
+  const finishIntro = () => {
+    setIntro(false);
+    try { localStorage.setItem("portfolio-intro-seen", "1"); }
+    catch { /* localStorage unavailable — intro will just replay next visit */ }
+  };
 
   return (
     <ThemeProvider>
-      <IntroScreen visible={intro} onDone={() => setIntro(false)} />
-      <Cursor />
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Experience />
-        <Projects />
-        <Principles />
-        <Terminal />
-        <Timeline />
-        <Education />
-        <Contact />
-      </main>
-      <Footer />
-      <ScrollTop />
+      <MotionConfig reducedMotion="user">
+        <IntroScreen visible={intro} onDone={finishIntro} />
+        <Cursor />
+        <Navbar />
+        <main>
+          <Hero />
+          <About />
+          <Skills />
+          <Experience />
+          <Projects />
+          <Principles />
+          <Terminal />
+          <Timeline />
+          <Education />
+          <Contact />
+        </main>
+        <Footer />
+        <ScrollTop />
+      </MotionConfig>
     </ThemeProvider>
   );
 }

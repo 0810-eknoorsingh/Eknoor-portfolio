@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef, lazy, Suspense } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
-import { T } from "./SectionWrapper";
+import { T } from "../theme";
 import { data } from "../data";
 
 const ThreeScene  = lazy(() => import("./ThreeScene"));
@@ -29,21 +29,26 @@ function MagneticBtn({ children, href, onClick, style, download }) {
 
 /* ── Typed animation ── */
 function TypedRole({ roles }) {
-  const [text, setText] = useState("");
+  const [reduceMotion] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+  const [text, setText] = useState(() => (reduceMotion ? roles[0] : ""));
   const [ri, setRi]   = useState(0);
   const [del, setDel] = useState(false);
   useEffect(() => {
+    if (reduceMotion) return;
     const cur = roles[ri];
     let t;
     if (!del) {
       if (text.length < cur.length) t = setTimeout(() => setText(cur.slice(0, text.length + 1)), 90);
       else t = setTimeout(() => setDel(true), 2800);
+    } else if (text.length > 0) {
+      t = setTimeout(() => setText(cur.slice(0, text.length - 1)), 50);
     } else {
-      if (text.length > 0) t = setTimeout(() => setText(cur.slice(0, text.length - 1)), 50);
-      else { setDel(false); setRi((ri + 1) % roles.length); }
+      t = setTimeout(() => { setDel(false); setRi((ri + 1) % roles.length); }, 50);
     }
     return () => clearTimeout(t);
-  }, [text, del, ri, roles]);
+  }, [text, del, ri, roles, reduceMotion]);
   return (
     <span className="font-display font-normal text-muted" style={{ fontSize: "clamp(1.1rem,2.2vw,1.45rem)" }}>
       {text}<span className="blink text-accent">|</span>
@@ -56,8 +61,8 @@ function CodeCard() {
   const lines = [
     [<><span style={{color:"#ff79c6"}}>const</span> <span style={{color:"#50fa7b"}}>developer</span> = {"{"}</>],
     [<>&nbsp;&nbsp;<span style={{color:"#8be9fd"}}>name</span>: <span style={{color:"#f1fa8c"}}>"Eknoor Singh"</span>,</>],
-    [<>&nbsp;&nbsp;<span style={{color:"#8be9fd"}}>role</span>: <span style={{color:"#f1fa8c"}}>"Full Stack Engineer"</span>,</>],
-    [<>&nbsp;&nbsp;<span style={{color:"#8be9fd"}}>exp</span>:  <span style={{color:"#f1fa8c"}}>"1+ year"</span>,</>],
+    [<>&nbsp;&nbsp;<span style={{color:"#8be9fd"}}>role</span>: <span style={{color:"#f1fa8c"}}>"Software Engineer"</span>,</>],
+    [<>&nbsp;&nbsp;<span style={{color:"#8be9fd"}}>exp</span>:  <span style={{color:"#f1fa8c"}}>"2 years"</span>,</>],
     [<>&nbsp;&nbsp;<span style={{color:"#8be9fd"}}>stack</span>: [</>],
     [<>&nbsp;&nbsp;&nbsp;&nbsp;<span style={{color:"#f1fa8c"}}>"React"</span>, <span style={{color:"#f1fa8c"}}>"Next.js"</span>,</>],
     [<>&nbsp;&nbsp;&nbsp;&nbsp;<span style={{color:"#f1fa8c"}}>"Node.js"</span>, <span style={{color:"#f1fa8c"}}>"TypeScript"</span>,</>],
@@ -98,8 +103,9 @@ function CodeCard() {
           <span className="font-mono text-[0.72rem] text-dim">eknoor.ts</span>
           <span className="w-12"/>
         </div>
-        {/* Code */}
-        <div className="font-mono text-[0.78rem] leading-[1.95] px-[22px] py-[18px]">
+        {/* Code — card is always dark, so pin a light base color for unstyled
+            tokens (=, {, quotes) instead of inheriting the theme text color */}
+        <div className="font-mono text-[0.78rem] leading-[1.95] px-[22px] py-[18px]" style={{ color: "#e2e8f0" }}>
           {lines.map((line, i) => (
             <div key={i} className="flex gap-3.5">
               <span className="text-dim select-none min-w-[16px] text-right text-[0.7rem] shrink-0">{i+1}</span>
@@ -121,14 +127,33 @@ const socialIcons = [
 export default function Hero() {
   const item = (d) => ({ initial:{ opacity:0, y:28 }, animate:{ opacity:1, y:0 }, transition:{ duration:0.7, delay:d, ease:[0.22,1,0.36,1] } });
 
+  // Mount the 3D scene only where it adds value: fine pointers (the scene is
+  // mouse-driven) and no reduced-motion preference. Pause rendering entirely
+  // while the hero is scrolled off-screen so it never burns frames in the background.
+  const sectionRef = useRef(null);
+  const [sceneOn] = useState(() =>
+    typeof window !== "undefined" &&
+    window.matchMedia("(pointer: fine)").matches &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+  const [sceneActive, setSceneActive] = useState(true);
+  useEffect(() => {
+    if (!sceneOn) return;
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => setSceneActive(entry.isIntersecting));
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [sceneOn]);
+
   return (
-    <section id="hero" className="min-h-screen flex items-center relative overflow-hidden px-10 pt-[110px] pb-[70px] max-sm:px-6 max-sm:pt-[100px] max-sm:pb-[60px] bg-bg">
+    <section ref={sectionRef} id="hero" className="min-h-screen flex items-center relative overflow-hidden px-10 pt-[110px] pb-[70px] max-sm:px-6 max-sm:pt-[100px] max-sm:pb-[60px] bg-bg">
       {/* Dot grid */}
       <div className="absolute inset-0 z-0" style={{ backgroundImage:`radial-gradient(circle, var(--dot-grid) 1px, transparent 1px)`, backgroundSize:"36px 36px", WebkitMaskImage:"radial-gradient(ellipse 75% 75% at 50% 50%, black 0%, transparent 100%)", maskImage:"radial-gradient(ellipse 75% 75% at 50% 50%, black 0%, transparent 100%)" }}/>
       {/* Glows */}
       <div className="absolute w-[750px] h-[750px] rounded-full pointer-events-none z-0" style={{ background:"radial-gradient(circle, rgba(0,212,255,0.07) 0%, transparent 65%)", top:-200, right:-200 }}/>
       <div className="absolute w-[500px] h-[500px] rounded-full pointer-events-none z-0" style={{ background:"radial-gradient(circle, rgba(0,255,136,0.04) 0%, transparent 65%)", bottom:-100, left:-100 }}/>
-      <Suspense fallback={null}><ThreeScene /></Suspense>
+      {sceneOn && <Suspense fallback={null}><ThreeScene active={sceneActive} /></Suspense>}
 
       <div className="max-w-[1200px] mx-auto relative z-[1] grid grid-cols-1 lg:grid-cols-2 gap-[80px] items-center w-full">
         {/* ── LEFT ── */}
@@ -195,7 +220,7 @@ export default function Hero() {
           {/* Socials */}
           <motion.div {...item(0.5)} className="flex gap-[10px]">
             {socialIcons.map(({ href, title, icon }) => (
-              <a key={title} href={href} target={href.startsWith("http")?"_blank":undefined} rel="noreferrer" title={title}
+              <a key={title} href={href} target={href.startsWith("http")?"_blank":undefined} rel="noreferrer" title={title} aria-label={title}
                 style={{ display:"flex", alignItems:"center", justifyContent:"center", width:40, height:40, border:`1px solid ${T.subtleBorder}`, borderRadius:10, color:T.muted, textDecoration:"none", transition:"all 0.3s" }}
                 onMouseEnter={e=>{ e.currentTarget.style.borderColor=T.accentBorder; e.currentTarget.style.color=T.accent; e.currentTarget.style.background=T.accentDim; e.currentTarget.style.transform="translateY(-3px)"; e.currentTarget.style.boxShadow=`0 4px 20px ${T.accentGlow}`; }}
                 onMouseLeave={e=>{ e.currentTarget.style.borderColor=T.subtleBorder; e.currentTarget.style.color=T.muted; e.currentTarget.style.background="transparent"; e.currentTarget.style.transform=""; e.currentTarget.style.boxShadow=""; }}
